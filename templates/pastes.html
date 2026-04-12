@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>{{printf "%s" .data.Name}}</title>
+</head>
+<body>
+    <div id="logo">
+        <pre>
+            {{if .logo}}
+                {{printf "%s" .logo}}
+            {{else}}
+                                                                                                                                        
+ mm          mmmm       mmmm     mmmm               mmmmmm     mmmm              mmm   mm  mm    mm  mm        mm       
+ ##         ##""##    ##""""#   ##""##              ""##""   m#""""#             ###   ##  ##    ##  ##        ##       
+ ##        ##    ##  ##        ##    ##               ##     ##m                 ##"#  ##  ##    ##  ##        ##       
+ ##        ##    ##  ##  mmmm  ##    ##               ##      "####m             ## ## ##  ##    ##  ##        ##       
+ ##        ##    ##  ##  ""##  ##    ##               ##          "##            ##  #m##  ##    ##  ##        ##       
+ ##mmmmmm   ##mm##    ##mmm##   ##mm##              mm##mm   #mmmmm#"            ##   ###  "##mm##"  ##mmmmmm  ##mmmmmm 
+ """"""""    """"       """"     """"               """"""    """""              ""   """    """"    """"""""  """"""""                                                                                                        
+            {{end}}
+        </pre>
+    </div>
+    <div>
+        <h1>
+            {{printf "%s" .data.Name}}
+        </h1>
+    </div>
+    <div class="pas">
+        {{range .pastes}}
+            <div>
+                ID:{{.ID}}
+                <a href="/paste/{{.ID}}">{{.Title}}</a>
+            </div>
+        {{else}}
+            Havent any pastes yet :(
+        {{end}}
+    </div>
+</body>
+</html>

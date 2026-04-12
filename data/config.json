@@ -1,0 +1,43 @@
+{
+    "port": "8080",
+    "host": "127.0.0.1",
+    "name": "anon-pastebin-v2.com",
+    "created_by": "Yoshiheim",
+    "logo_path": "./data/logo.txt",
+    "theme": 0,
+    "favicon_path": "./data/favicon.ico",
+    "clear_timer": {
+        "destroy_pinned": false,
+        "tick": "3(h)"
+    },
+    "limit": {
+        "limit_time": 4,
+        "posts": 2
+    },
+    "topics": [
+        {
+            "name": "Index",
+            "descr": "The Index Topic-Page for Post Any Shit :3"
+        },
+        {
+            "name": "Code",
+            "descr": "The Code Topic of PasteBin(the quotes will be escaped lol)."
+        },
+        {
+            "name": "SelfPromo",
+            "descr": "The Self-Promotion Topic in this PasteBin."
+        },
+        {
+            "name": "Guides",
+            "descr": "If You Want to Post Guides, Here for This. TEST TEXT BROO"
+        }
+    ],
+    "pastes": [
+        {
+            "title": "MAIN PASTE",
+            "content": "Created by Yoshiheim(https://github.com/Yoshiheim)\nPlz do not make http-flud here\nAnd have fun!",
+            "is_titled": true,
+            "topic_index": 1
+        }
+    ]
+}

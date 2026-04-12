@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>{{printf "%s" .data.Name}}</title>
+</head>
+<body>
+    <div id="logo">
+        {{if .logo }}
+        <pre>{{printf "%s" .logo}}</pre>
+        {{else}}
+        <pre></pre>
+        {{end}}
+    </div>
+    <div>
+        <h1>
+            {{printf "%s" .data.Name}}
+        </h1>
+    </div>
+    <div class="pas">
+        {{range .topics}}
+            <div style="padding: 5px;" class="topic">
+                <a href="/topic/{{.ID}}">/{{.Name}}</a>
+                <div>
+                    <small style="color:rgb(172, 172, 172)">{{.Description}}</small>
+                </div>
+            </div>
+        {{else}}
+            Havent any topics yet :(
+        {{end}}
+    </div>       
+</body>
+</html>

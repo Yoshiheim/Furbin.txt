@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Topic.</title>
+</head>
+<body>
+    <div id="create">
+        Title:
+        <textarea id="title" class="inputs" maxlength="100" style="resize:none;" rows="4" cols="30" required></textarea>
+        <div>
+        Content:
+        <textarea id="content" class="inputs" maxlength="500" style="resize:none;" rows="40" cols="70" required></textarea>
+        </div>
+        Username of Creator:
+        <textarea id="author" class="inputs" maxlength="100" style="resize:none;" rows="2" cols="70" required></textarea>
+        
+        <div>
+            <button onclick="FetchData('{{.id}}')">Create Paste</button>
+        </div>
+    </div>
+    <div class="pas">
+        {{if .temp }}
+            [PASTES] - [WEBSITE DELETE ALL PASTES EVERY {{.temp}}!]
+        {{else}}
+            [PASTES]
+        {{end}}
+        {{range .pastes}}
+            <div id="pastes">
+                ID:{{.ID}}
+                <a href="/paste/{{.ID}}">{{.Title}}</a>
+                <small>[{{printf "%s" .Author}}]</small>
+                {{if .IsTitled}}
+                    (Pinned Paste)
+                {{end}}
+            </div>
+        {{else}}
+            <div> 
+                Havent any pastes yet :(
+            </div>
+        {{end}}
+    </div>
+    <script>
+        const title = document.getElementById("title")
+        const content = document.getElementById("content")
+        const author = document.getElementById("author")
+        async function FetchData(id){
+            fetch("/create", {
+                method: "POST",
+                headers: {
+                    'User-Agent': "application/json",
+                },
+                body: JSON.stringify({
+                    'title': title.value,
+                    'content': content.value,
+                    'author': author.value,
+                    'topicid': parseInt(id),
+                })
+            }).then(res =>   {
+                location.reload()
+            }).catch(err => alert(err))
+        }
+    </script>
+</body>
+</html>

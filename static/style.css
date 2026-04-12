@@ -1,0 +1,81 @@
+body {
+    background-color: rgb(19, 19, 19);
+    color: rgb(216, 216, 216);
+
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+textarea {
+    border: none;
+    background-color: rgb(53, 53, 53);
+    color: white;
+    white-space: pre-wrap;
+}
+
+button{
+    padding: 10px;
+    border: none;
+    color: white;
+    background-color: rgb(73, 73, 73);
+}
+button:hover {
+    background-color: #2980b9;
+}
+button:active{
+    background-color: #1b3f57;
+    transform: scale(0.95);
+}
+
+div{
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+}
+
+a {
+    color: #2980b9;
+}
+
+.pas{
+    background-color: rgb(31, 31, 31);
+    width: 100%;
+    
+}
+
+.inputs{
+    border: none;
+    background-color: rgb(53, 53, 53);
+    color: white;
+    white-space: pre-wrap;
+}
+
+.pastes{
+    padding: 10px;
+}
+
+
+@media (max-width: 768px) {
+    #logo{
+        display: none;
+    }
+    button{
+        margin: 30px;
+        padding: 30px;
+    }
+    textarea {
+        width: 80%;
+        box-sizing: border-box
+    }
+    .pas{
+        width: 100%;
+    }
+    .topic{
+        width: 50%;
+        box-sizing: border-box;
+    }
+}
+
+#create{
+    text-align: center;
+    margin: 40px;
+}
