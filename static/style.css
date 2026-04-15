@@ -55,6 +55,10 @@ a {
 
 
 @media (max-width: 768px) {
+    body {
+        margin: 0; /* Убираем отступы браузера */
+        padding: 0;
+    }
     #logo{
         display: none;
     }
@@ -66,8 +70,8 @@ a {
         width: 80%;
         box-sizing: border-box
     }
-    .pas{
-        width: 100%;
+    .pas {
+        width: 100vw; /* Или width: 100vw; для ширины окна просмотра */
     }
     .topic{
         width: 50%;

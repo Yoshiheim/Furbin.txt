@@ -68,7 +68,7 @@ func InitDataBase() {
 					DB.Create(&modules.Paste{
 						Title:    p.Title,
 						Content:  p.Content,
-						Author:   "SYSTEM",
+						Author:   "WEBSITE SYSTEM",
 						IsTitled: p.IsTitled,
 						TopicID:  p.TopicIndex,
 					})

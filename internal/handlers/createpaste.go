@@ -38,15 +38,17 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Cannot parse JSON body", http.StatusBadRequest)
 		return
 	}
+
+	body.Title = html.EscapeString(helpers.SanitizeString(helpers.TruncateByte(body.Title, 100)))
+	body.Content = html.EscapeString(helpers.SanitizeString(helpers.TruncateByte(body.Content, 50000)))
+	body.Author = html.EscapeString(helpers.SanitizeString(helpers.TruncateByte(strings.ReplaceAll(body.Author, " ", ""), 100)))
+
 	if body.Title == "" || body.Content == "" {
 		log.Println("body is empty")
 		log.Printf("%s - %s - %d", body.Title, body.Content, body.TopicID)
 		http.Error(w, "body is empty", http.StatusBadRequest)
 		return
 	}
-	body.Title = html.EscapeString(helpers.SanitizeString(helpers.TruncateByte(body.Title, 100)))
-	body.Content = html.EscapeString(helpers.SanitizeString(helpers.TruncateByte(body.Content, 50000)))
-	body.Author = html.EscapeString(helpers.SanitizeString(helpers.TruncateByte(body.Author, 100)))
 
 	act := db.DB.Create(&modules.Paste{
 		Title:   body.Title,
