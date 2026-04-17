@@ -44,7 +44,7 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 	body.Author = html.EscapeString(helpers.SanitizeString(helpers.TruncateByte(strings.ReplaceAll(body.Author, " ", ""), 100)))
 
 	if body.Title == "" || body.Content == "" {
-		log.Printf("Some Body is Empty: %s - %q - %q", body.Title, body.Content, body.TopicID)
+		log.Printf("Some Body is Empty: %q - %q - %q", body.Title, body.Content, body.TopicID)
 		http.Error(w, "Body Is Empty", http.StatusBadRequest)
 		return
 	}
