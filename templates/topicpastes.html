@@ -9,13 +9,13 @@
 <body>
     <div id="create">
         Title:
-        <textarea id="title" class="inputs" maxlength="100" style="resize:none;" rows="4" cols="30" required></textarea>
+        <textarea id="title" class="inputs" maxlength="128" style="resize:none;" rows="4" cols="30" required></textarea>
         <div>
         Content:
-        <textarea id="content" class="inputs" maxlength="50000" style="resize:none;" rows="40" cols="70" required></textarea>
+        <textarea id="content" class="inputs" maxlength="65536" style="resize:none;" rows="40" cols="70" required></textarea>
         </div>
         Username of Creator:
-        <textarea id="author" class="inputs" maxlength="100" style="resize:none;" rows="2" cols="70" required></textarea>
+        <textarea id="author" class="inputs" maxlength="128" style="resize:none;" rows="2" cols="70" required></textarea>
         
         <div>
             <button onclick="FetchData('{{.id}}')">Create Paste</button>
@@ -23,7 +23,7 @@
     </div>
     <div class="pas">
         {{if .temp }}
-            [PASTES] - [WEBSITE DELETE ALL PASTES EVERY {{.temp}}!]
+            [PASTES] - [ALL PASTES ARE DELETED AFTER {{.temp}}]
         {{else}}
             [PASTES]
         {{end}}
@@ -33,12 +33,12 @@
                 <a href="/paste/{{.ID}}">{{.Title}}</a>
                 <small>[{{printf "%s" .Author}}]</small>
                 {{if .IsTitled}}
-                    (Pinned Paste)
+                    (Pinned)
                 {{end}}
             </div>
         {{else}}
             <div> 
-                Havent any pastes yet :(
+                No pastes have been made :(
             </div>
         {{end}}
     </div>
