@@ -17,25 +17,25 @@
     "topics": [
         {
             "name": "Index",
-            "descr": "The Index Topic-Page for Post Any Shit :3"
+            "descr": "General topic for pasting anything"
         },
         {
             "name": "Code",
-            "descr": "The Code Topic of PasteBin(the quotes will be escaped lol)."
+            "descr": "Paste your code here for everyone to see"
         },
         {
             "name": "SelfPromo",
-            "descr": "The Self-Promotion Topic in this PasteBin."
+            "descr": "Promote your stuff or anything else under this topic"
         },
         {
             "name": "Guides",
-            "descr": "If You Want to Post Guides, Here for This."
+            "descr": "If you want to post guides, this is the topic for you."
         }
     ],
     "pastes": [
         {
-            "title": "MAIN PASTE AND LINK TO SOURCE CODE",
-            "content": "Created by Yoshiheim(https://github.com/Yoshiheim)\nAnd Source Code of Website: https://github.com/Yoshiheim/HOXT\nPlz do not make http-flud here\nAnd have fun! :3",
+            "title": "MAIN PASTE + LINK TO SOURCE CODE",
+            "content": "Created by Yoshiheim(https://github.com/Yoshiheim)\nSource code: https://github.com/Yoshiheim/HOXT\nPlease do not http-flood this, and have fun! :3",
             "is_titled": true,
             "topic_index": 1
         }
