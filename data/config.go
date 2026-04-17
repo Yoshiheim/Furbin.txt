@@ -77,7 +77,6 @@ func InitConfig(path string) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	PrintAllConfigs()
 }
 
 // TODO: REMOVE SHITCODE MOTHERFUCKER.

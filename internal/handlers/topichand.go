@@ -19,7 +19,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	act := db.DB.Find(&tops)
 	if act.Error != nil {
 		log.Println(act.Error.Error())
-		http.Error(w, "DB Error.", http.StatusInternalServerError)
+		http.Error(w, "Error With DB.", http.StatusInternalServerError)
 		return
 	}
 
@@ -30,7 +30,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	tpl, err := template.ParseFiles("./templates/index.html")
 	if err != nil {
 		log.Println(err.Error())
-		http.Error(w, "Error", http.StatusInternalServerError)
+		http.Error(w, "Error With File", http.StatusInternalServerError)
 		return
 	}
 
@@ -108,12 +108,11 @@ func FindByTopic(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	/*
-		for i := range pas {
-			pas[i].Title = html.EscapeString(pas[i].Title)
-			pas[i].Content = html.EscapeString(pas[i].Content)
-		}
-	*/
+	for i := range pas {
+		pas[i].Title = html.EscapeString(pas[i].Title)
+		pas[i].Content = html.EscapeString(pas[i].Content)
+		pas[i].Author = html.EscapeString(pas[i].Author)
+	}
 
 	tpl, err := template.ParseFiles("./templates/topicpastes.html")
 	if err != nil {
@@ -132,8 +131,4 @@ func FindByTopic(w http.ResponseWriter, r *http.Request) {
 		"temp":   temp,
 		"pastes": pas,
 	})
-}
-
-func CreateTopic(w http.ResponseWriter, r *http.Request) {
-
 }
