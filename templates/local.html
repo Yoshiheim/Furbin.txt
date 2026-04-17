@@ -21,9 +21,9 @@
         async function copyText(text) {
             try {
                 await navigator.clipboard.writeText(text);
-                console.log('Текст скопирован!');
+                console.log('Text copied!');
             } catch (err) {
-                console.error('Ошибка копирования: ', err);
+                console.error('Copy error: ', err);
             }
         }
     </script>
