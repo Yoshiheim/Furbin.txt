@@ -27,7 +27,7 @@ func main() {
 
 	helpers.Timer()
 
-	log.Printf("Server Runned in http://%s:%s\n", data.Configs.Host, data.Configs.Port)
+	log.Printf("Server ran on http://%s:%s\n", data.Configs.Host, data.Configs.Port)
 
 	http.ListenAndServe(data.Configs.Host+":"+data.Configs.Port, nil)
 }
