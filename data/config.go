@@ -17,6 +17,7 @@ type Config struct {
 	LogoPath    string     `json:"logo_path"`
 	Theme       uint       `json:"theme"`
 	FaviconPath string     `json:"favicon_path"`
+	DBFilename  string     `json:"db_filename"`
 	ClearTimer  ClearTimer `json:"clear_timer"`
 	Limit       Limit      `json:"limit"`
 	Topics      []Topic    `json:"topics"`

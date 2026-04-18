@@ -8,13 +8,17 @@
 </head>
 <body>
     <div class="pas">
+
         ID:{{.ID}}
         <div>
             {{.Title}}
         </div>
         <div>
-            <pre style="text-align: left; white-space: pre-wrap;" id="content" >{{.Content}}</pre>
+            [Created At: {{ formatDate .CreatedAt }}]
         </div>
+
+        <pre style="text-align: left; white-space: pre-wrap;" id="content" >{{.Content}}</pre>
+
         <button onclick="copyText(document.getElementById('content').textContent)">Copy</button>
     </div>
     <script>

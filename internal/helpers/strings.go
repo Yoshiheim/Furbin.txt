@@ -2,6 +2,7 @@ package helpers
 
 import "unicode"
 
+// Its cut string by maxBytes size
 func TruncateByte(s string, maxBytes int) string {
 	if len(s) <= maxBytes { // len() returns byte count
 		return s
@@ -9,14 +10,11 @@ func TruncateByte(s string, maxBytes int) string {
 	return s[:maxBytes]
 }
 
+// this function doesn't work like I want.
 func SanitizeString(s string) string {
-	// Создаем слайс рун с запасом по емкости
 	result := make([]rune, 0, len(s))
 
 	for _, r := range s {
-		// unicode.IsPrint проверяет, является ли символ печатным
-		// (буквы, цифры, пунктуация, пробелы)
-		// Также отсекает управляющие символы типа \x00, \x1F и т.д.
 		if unicode.IsPrint(r) || r == '\n' || r == '\t' {
 			result = append(result, r)
 		}

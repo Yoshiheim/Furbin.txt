@@ -2,15 +2,18 @@ package handlers
 
 import (
 	"hoxt/internal/db"
+	"hoxt/internal/helpers"
 	"hoxt/internal/modules"
 	"html"
+	"html/template"
 	"log"
 	"net/http"
 	"strconv"
 	"strings"
-	"text/template"
 )
 
+// Some Local Paste Website.
+// Path: 'http://<HOST>:<PORT>/paste/1'
 func Local(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
 	if len(parts) < 3 {
@@ -21,13 +24,6 @@ func Local(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(parts[2])
 	if err != nil {
 		http.Error(w, "Invalid topic id", http.StatusBadRequest)
-		return
-	}
-
-	tpl, err := template.ParseFiles("./templates/local.html")
-	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Cant Parse File", http.StatusInternalServerError)
 		return
 	}
 
@@ -44,6 +40,13 @@ func Local(w http.ResponseWriter, r *http.Request) {
 	paste.Title = html.EscapeString(paste.Title)
 	paste.Content = html.EscapeString(paste.Content)
 	paste.Author = html.EscapeString(paste.Author)
+
+	tpl, err := template.New("local.html").Funcs(helpers.FuncMap).ParseFiles("./templates/local.html")
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, "Cant Parse File", http.StatusInternalServerError)
+		return
+	}
 
 	if err := tpl.Execute(w, paste); err != nil {
 		log.Println(err.Error())

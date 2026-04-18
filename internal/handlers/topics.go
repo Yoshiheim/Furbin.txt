@@ -13,6 +13,8 @@ import (
 	"text/template"
 )
 
+// The Index aka '/' path in website.
+// path: 'http://<HOST>:<PORT>/'
 func Index(w http.ResponseWriter, r *http.Request) {
 	var tops []modules.Topic
 
@@ -45,43 +47,8 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-/*
-func FindByTopic(w http.ResponseWriter, r *http.Request) {
-
-		id := r.URL.Query().Get("id")
-		if id == "" {
-			http.Error(w, "Query 'id' is empty", http.StatusBadRequest)
-			return
-		}
-		log.Println(id)
-
-		var pas []modules.Paste
-
-		act := db.DB.Where("topic_id", id).Find(&pas)
-		if act.Error != nil {
-			http.Error(w, act.Error.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		for i := range pas {
-			pas[i].Title = html.EscapeString(pas[i].Title)
-			pas[i].Content = html.EscapeString(pas[i].Content)
-		}
-
-		tpl, err := template.ParseFiles("./templates/topicpastes.html")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		if err := tpl.Execute(w, map[string]any{
-			"pastes": pas,
-		}); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-	}
-*/
+// Index Of Topic of Website.
+// Path: 'http://<HOST>:<PORT>/topic/1'
 func FindByTopic(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
 	if len(parts) < 3 {

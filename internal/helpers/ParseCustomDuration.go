@@ -8,7 +8,8 @@ import (
 )
 
 func ParseCustomDuration(input string) (time.Duration, error) {
-	// Регулярное выражение: ищем число (\d+) и букву внутри скобок \(([hmsd])\)
+	// REGEXP: Find a number  (\d+) and letter in brackets like h(Hour), m(Minute), s(Second)  \(([hmsd])\)
+	// For Example: "24(h)" = 24 Hour(or 1 day).
 	re := regexp.MustCompile(`^(\d+)\(([hmsd])\)$`)
 	matches := re.FindStringSubmatch(input)
 
@@ -16,13 +17,13 @@ func ParseCustomDuration(input string) (time.Duration, error) {
 		return 0, fmt.Errorf("invalid format: %s", input)
 	}
 
-	// Парсим число
+	// Parse Number.
 	value, err := strconv.Atoi(matches[1])
 	if err != nil {
 		return 0, err
 	}
 
-	// Определяем множитель времени на основе буквы в скобках
+	// Define letter in brackets: "(h)", "(m)", "(s)".
 	unit := matches[2]
 	var duration time.Duration
 	switch unit {

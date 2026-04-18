@@ -2,10 +2,11 @@
     "port": "10000",
     "host": "0.0.0.0",
     "name": "somepastebin.onrender.com",
-    "created_by": "Yoshiheim",
+    "created_by": "Mr. Yoshihelm",
     "logo_path": "./data/logo.txt",
     "theme": 0,
     "favicon_path": "./data/favicon.ico",
+    "db_filename": "data.db",
     "clear_timer": {
         "destroy_pinned": false,
         "tick": "24(h)"
