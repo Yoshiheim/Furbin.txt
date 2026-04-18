@@ -1,7 +1,7 @@
 {
     "port": "10000",
     "host": "0.0.0.0",
-    "name": "anon-pastebin-v2.com",
+    "name": "somepastebin.onrender.com",
     "created_by": "Yoshiheim",
     "logo_path": "./data/logo.txt",
     "theme": 0,

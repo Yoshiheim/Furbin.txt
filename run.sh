@@ -1,0 +1,5 @@
+if [ "$1" = "local" ]; then
+    go run main.go -host=127.0.0.1 -port=8080
+else
+    go run main.go
+fi

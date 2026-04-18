@@ -56,7 +56,7 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 
 	body.Title = html.EscapeString(helpers.SanitizeString(body.Title))
 	body.Content = html.EscapeString(helpers.SanitizeString(body.Content))
-	body.Author = html.EscapeString(helpers.SanitizeString(strings.TrimSpace(body.Author)))
+	body.Author = html.EscapeString(helpers.SanitizeString(strings.ReplaceAll(body.Author, " ", "")))
 
 	if body.Title == "" {
 		http.Error(w, "Title Is empty", http.StatusBadRequest)
