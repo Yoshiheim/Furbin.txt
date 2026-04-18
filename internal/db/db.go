@@ -12,8 +12,11 @@ import (
 var DB *gorm.DB
 
 func InitDataBase() {
+	if data.Configs.DBFilename == "" {
+		data.Configs.DBFilename = "data.db"
+	}
 	var err error
-	DB, err = gorm.Open(sqlite.Open("test.db"), &gorm.Config{
+	DB, err = gorm.Open(sqlite.Open(data.Configs.DBFilename), &gorm.Config{
 		TranslateError: true, // Позволяет GORM возвращать понятные ошибки
 	})
 	if err != nil {

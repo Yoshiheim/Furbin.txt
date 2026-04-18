@@ -1,0 +1,8 @@
+# i hate delete db file every sigle time.
+db.sqlite3
+
+*.sqlite3
+*.sqlite
+
+*.db-shm
+*.db-wal
