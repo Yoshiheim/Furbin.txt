@@ -1,6 +1,7 @@
 # i hate delete db file every sigle time.
 db.sqlite3
 
+*.db
 *.sqlite3
 *.sqlite
 
