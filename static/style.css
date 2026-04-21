@@ -39,7 +39,7 @@ a {
 .pas{
     background-color: rgb(31, 31, 31);
     width: 100%;
-    
+    text-align: center;
 }
 
 .inputs{
@@ -51,6 +51,7 @@ a {
 
 .pastes{
     padding: 10px;
+    text-align: center;
 }
 
 

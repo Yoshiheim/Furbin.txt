@@ -7,6 +7,7 @@ import (
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 var DB *gorm.DB
@@ -18,6 +19,7 @@ func InitDataBase() {
 	var err error
 	DB, err = gorm.Open(sqlite.Open(data.Configs.DBFilename), &gorm.Config{
 		TranslateError: true, // Позволяет GORM возвращать понятные ошибки
+		Logger:         logger.Default.LogMode(logger.Silent),
 	})
 	if err != nil {
 		panic("failed to connect database")

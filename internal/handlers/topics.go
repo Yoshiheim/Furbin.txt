@@ -63,12 +63,19 @@ func FindByTopic(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var pas []modules.Paste
+	var count int64
 
 	act := db.DB.
 		Preload("Topic").
 		Where("topic_id = ?", topicID).
 		Order("is_titled DESC").
-		Find(&pas)
+		Find(&pas).
+		Count(&count)
+
+	if count <= 0 {
+		helpers.Render404(w)
+		return
+	}
 
 	if act.Error != nil {
 		http.Error(w, act.Error.Error(), http.StatusInternalServerError)

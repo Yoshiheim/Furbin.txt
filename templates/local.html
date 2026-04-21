@@ -7,17 +7,14 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="pas">
+    <div style="text-align: left; background-color: rgb(31, 31, 31);">
 
         ID:{{.ID}}
-        <div>
             {{.Title}}
-        </div>
-        <div>
+        
             [Created At: {{ formatDate .CreatedAt }}]
-        </div>
-
-        <pre style="text-align: left; white-space: pre-wrap;" id="content" >{{.Content}}</pre>
+        
+        <pre>{{.Content}}</pre>
 
         <button onclick="copyText(document.getElementById('content').textContent)">Copy</button>
     </div>

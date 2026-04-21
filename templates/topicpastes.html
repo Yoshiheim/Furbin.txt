@@ -60,6 +60,11 @@
                 })
             }).then(res =>   {
                 location.reload()
+                if(res.status == 500){
+                    console.log("Server Error")
+                }else if(res.status == 400){
+                    console.log("Bad Request")
+                }
             }).catch(err => alert(err))
         }
     </script>

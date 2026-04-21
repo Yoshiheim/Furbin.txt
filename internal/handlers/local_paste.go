@@ -28,11 +28,17 @@ func Local(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var paste modules.Paste
+	var count int64
 
-	act := db.DB.Find(&paste, id)
+	act := db.DB.Find(&paste, id).Count(&count)
 	if act.Error != nil {
 		log.Println(err.Error())
 		http.Error(w, act.Error.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if count <= 0 {
+		helpers.Render404(w)
 		return
 	}
 

@@ -2,12 +2,15 @@ package handlers
 
 import (
 	"encoding/json"
+	"errors"
 	"hoxt/internal/db"
 	"hoxt/internal/helpers"
 	"hoxt/internal/modules"
 	"html"
 	"net/http"
 	"strings"
+
+	"gorm.io/gorm"
 )
 
 /*
@@ -33,9 +36,9 @@ import (
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⣽⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⢃⣀⣠⡄⠀⠀⠀⠀⠀⠀⠀⢠⠀⠀⠀⠀⢹⡅⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣟⢶⣤⡀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⣸⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⢻⡀⠀⠀⠀⠀⠀⠀⣿⠵⠰⣫⠍⡌⣷⣆⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠈⢷⠀⠀⠀⠀⠀⠀⢹⣧⠑⢧⣻⢄⠣⢿⣧⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⣿⣾⡽⠫⣱⣷⠝⠘⣧⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⣇⠀⠀⠀⠀⠀⠀⢹⠀⠀⠀⠀⠀⠀⠀⢸⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠈⢷⠀⠀⠀⠀⠀⠀⢹⣧⠑⢧⣻⢄⠣⢿⣧⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⠀⠀⠀⠀⠀⠀⢻⠂⠀⠀⠀⠀⠰⡜⠀⠀⠀⠀⠀⠀⠀⢺⡂
 - YOU CAN POST PASTES WITH ASCII ART LIKE THIS BOYKISSER.
 */
@@ -87,27 +90,41 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Create Paste On DB.
+
 	// 'author' in JSON request is optional btw.
 
-	// Create Paste On DB.
-	act := db.DB.Create(&modules.Paste{
+	err := helpers.CreatePasteIfTopicExists(db.DB, body.TopicID, modules.Paste{
 		Title:   body.Title,
 		Content: body.Content,
 		Author:  body.Author,
 		TopicID: body.TopicID,
 	})
-
-	// If DB Query have Error, Check kind of Error, otherwise http.StatusInternalServerError Idk Why.
-	if act.Error != nil {
-		if strings.Contains(act.Error.Error(), "violates foreign key constraint") {
-			http.Error(w, "Topic ID does not exist ", http.StatusBadRequest)
+	if err != nil {
+		if errors.As(err, &gorm.ErrRecordNotFound) {
+			http.Error(w, "this topic to paste does not exist.", http.StatusBadRequest)
 			return
 		}
-
-		http.Error(w, "Server error", http.StatusInternalServerError)
+		http.Error(w, "we have some problem with database.", http.StatusInternalServerError)
 		return
 	}
 
+	// Create Paste On DB.
+	// We dont need this code.
+	/*	act := db.DB.Create(&modules.Paste{
+				Title:   body.Title,
+				Content: body.Content,
+				Author:  body.Author,
+				TopicID: body.TopicID,
+			})
+
+		// If DB Query have Error, Check kind of Error, otherwise http.StatusInternalServerError Idk Why.
+		if act.Error() != nil {
+			http.Error(w, "Server error", http.StatusInternalServerError)
+			return
+
+		}
+	*/
 	// if all goes well, return code 200(aka http.StatusOK).
 	w.WriteHeader(http.StatusOK)
 }
