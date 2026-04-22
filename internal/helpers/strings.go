@@ -1,6 +1,9 @@
 package helpers
 
-import "unicode"
+import (
+	"strings"
+	"unicode"
+)
 
 // Its cut string by maxBytes size
 func TruncateByte(s string, maxBytes int) string {
@@ -20,4 +23,11 @@ func SanitizeString(s string) string {
 		}
 	}
 	return string(result)
+}
+
+func DestoySpaces(text string) string {
+	text = strings.ReplaceAll(text, "\t", "")
+	text = strings.ReplaceAll(text, "\n", "")
+	text = strings.ReplaceAll(text, " ", "")
+	return text
 }

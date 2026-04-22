@@ -3,12 +3,13 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"hoxt/internal/db"
 	"hoxt/internal/helpers"
 	"hoxt/internal/modules"
 	"html"
 	"net/http"
-	"strings"
+	"strconv"
 
 	"gorm.io/gorm"
 )
@@ -74,9 +75,13 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	body.Title = html.EscapeString(helpers.SanitizeString(body.Title))
-	body.Content = html.EscapeString(helpers.SanitizeString(body.Content))
-	body.Author = html.EscapeString(helpers.SanitizeString(strings.ReplaceAll(body.Author, " ", "")))
+	fmt.Println(strconv.QuoteToASCII(body.Author))
+
+	//THIS LOOKS LIKE UNREADEBLE (╥﹏╥)
+	body.Title = html.EscapeString(helpers.ToASCII(helpers.TruncateByte(body.Title, 100)))
+	body.Content = html.EscapeString(helpers.CleanForASCIIArt(helpers.TruncateByte(body.Content, 50000)))
+	// if someone try to hack by bytes instand of string chars.
+	body.Author = html.EscapeString(helpers.SanitizeString(helpers.ToASCII(helpers.DestoySpaces(helpers.TruncateByte(body.Author, 50)))))
 
 	//Check is 'title' in JSON requet is empty.
 	if body.Title == "" {
