@@ -22,7 +22,7 @@
         },
         {
             "name": "code",
-            "descr": "Paste your code here for everyone to see"
+            "descr": "Paste your code here for everyone"
         },
         {
             "name": "asciiart",
@@ -30,7 +30,7 @@
         },
         {
             "name": "selfpromo",
-            "descr": "Promote your stuff or anything else under this topic"
+            "descr": "Promote yourself here"
         },
         {
             "name": "guides",
@@ -43,6 +43,14 @@
             "content": "Created by Yoshiheim(https://github.com/Yoshiheim)\nSource code: https://github.com/Yoshiheim/HOXT\nPlease do not http-flood this, and have fun! :3",
             "is_titled": true,
             "topic_index": 1
+        },
+        {
+            "title": "ASCII art example",
+            "content": "/\\_/\\  \n  ( o.o ) \n   > ^ <  \n  /  \"  \\ \n /__---__\\",
+            "is_titled": true,
+            "topic_index": 3
+        
         }
+        
     ]
 }
