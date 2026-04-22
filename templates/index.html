@@ -5,25 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <title>{{printf "%s" .data.Name}}</title>
+    <title>{{Escape .data.Name}}</title>
 </head>
 <body>
     <div id="logo">
         {{if .logo }}
-        <pre>{{printf "%s" .logo}}</pre>
+        <pre>{{Escape .logo}}</pre>
         {{else}}
         <pre></pre>
         {{end}}
     </div>
     <div>
         <h1>
-            {{printf "%s" .data.Name}}
+            <a href='https://github.com//{{Escape .data.CreatedBy}}'>Created By {{Escape .data.CreatedBy}}</a>
         </h1>
     </div>
     <div class="pas">
         {{range .topics}}
-            <div style="padding: 5px;" class="topic">
-                <a href="/topic/{{.ID}}">/{{.Name}}</a>
+            <div style="padding: 10px;" class="topic">
+                <a href="/topic/{{.ID}}">/{{.Name}}</a> - <small>{{.PostCount}} pastes</small>
                 <div>
                     <small style="color:rgb(172, 172, 172)">{{.Description}}</small>
                 </div>
