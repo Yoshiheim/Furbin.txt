@@ -12,7 +12,7 @@
         <textarea id="title" class="inputs" maxlength="128" style="resize:none;" rows="4" cols="30" required></textarea>
         <div>
         Content:
-        <textarea id="content" class="inputs" maxlength="65536" style="resize:none;" rows="40" cols="70" required></textarea>
+        <textarea id="content" class="inputs" maxlength="65536" style="resize:none;" rows="40" cols="90" required></textarea>
         </div>
         Username of Creator:
         <textarea id="author" class="inputs" maxlength="128" style="resize:none;" rows="2" cols="70" required></textarea>
@@ -20,6 +20,11 @@
         <div>
             <button onclick="FetchData('{{.id}}')">Create Paste</button>
         </div>
+    </div>
+    <div>
+        <h2>
+            [[/{{.topic.Name}}]]
+        </h2>
     </div>
     <div class="pas">
         {{if .temp }}
@@ -60,9 +65,9 @@
                 })
             }).then(res =>   {
                 location.reload()
-                if(res.status == 500){
+                if(res.status === 500){
                     console.log("Server Error")
-                }else if(res.status == 400){
+                }else if(res.status === 400){
                     console.log("Bad Request")
                 }
             }).catch(err => alert(err))

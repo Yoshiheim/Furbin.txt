@@ -17,19 +17,23 @@
     },
     "topics": [
         {
-            "name": "Index",
+            "name": "index",
             "descr": "General topic for pasting anything"
         },
         {
-            "name": "Code",
+            "name": "code",
             "descr": "Paste your code here for everyone to see"
         },
         {
-            "name": "SelfPromo",
+            "name": "asciiart",
+            "descr": "For creative people, we made topic of paste ascii arts :3"
+        },
+        {
+            "name": "selfpromo",
             "descr": "Promote your stuff or anything else under this topic"
         },
         {
-            "name": "Guides",
+            "name": "guides",
             "descr": "If you want to post guides, this is the topic for you."
         }
     ],

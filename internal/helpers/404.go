@@ -19,4 +19,5 @@ func Render404(w http.ResponseWriter) {
 		http.Error(w, "Cant Parse File", http.StatusInternalServerError)
 		return
 	}
+	w.WriteHeader(http.StatusNotFound)
 }

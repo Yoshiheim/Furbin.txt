@@ -16,7 +16,8 @@ func LimitMiddleware(next http.Handler) http.Handler {
 		log.Println(r.RemoteAddr)
 
 		if !limiter.Allow() {
-			log.Println("Too Many Requests By " + r.RemoteAddr)
+
+			log.Printf("Too Many Requests By %q", r.RemoteAddr)
 			http.Error(w, "Too Many Requests", http.StatusTooManyRequests)
 			return
 		}

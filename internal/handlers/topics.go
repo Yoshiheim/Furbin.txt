@@ -63,22 +63,30 @@ func FindByTopic(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var pas []modules.Paste
-	var count int64
+	var topic modules.Topic
 
 	act := db.DB.
 		Preload("Topic").
 		Where("topic_id = ?", topicID).
 		Order("is_titled DESC").
-		Find(&pas).
-		Count(&count)
+		Find(&pas)
 
-	if count <= 0 {
-		helpers.Render404(w)
+	if act.Error != nil {
+		http.Error(w, "something does wrong...", http.StatusInternalServerError)
 		return
 	}
 
-	if act.Error != nil {
-		http.Error(w, act.Error.Error(), http.StatusInternalServerError)
+	act2 := db.DB.
+		Where("id = ?", topicID).
+		Find(&topic)
+
+	if act2.Error != nil {
+		http.Error(w, "something does wrong...", http.StatusInternalServerError)
+		return
+	}
+
+	if topic == (modules.Topic{}) {
+		helpers.Render404(w)
 		return
 	}
 
@@ -104,5 +112,6 @@ func FindByTopic(w http.ResponseWriter, r *http.Request) {
 		"id":     topicID,
 		"temp":   temp,
 		"pastes": pas,
+		"topic":  topic,
 	})
 }
