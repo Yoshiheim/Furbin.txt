@@ -55,7 +55,7 @@
             fetch("/create", {
                 method: "POST",
                 headers: {
-                    'User-Agent': "application/json",
+                    'Content-Type': "application/json",
                 },
                 body: JSON.stringify({
                     'title': title.value,
