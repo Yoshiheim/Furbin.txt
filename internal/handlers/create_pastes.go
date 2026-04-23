@@ -75,8 +75,6 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(strconv.QuoteToASCII(body.Author))
-
 	//THIS LOOKS LIKE UNREADEBLE (╥﹏╥)
 	body.Title = html.EscapeString(helpers.ToASCII(helpers.TruncateByte(body.Title, 100)))
 	body.Content = html.EscapeString(helpers.CleanForASCIIArt(helpers.TruncateByte(body.Content, 50000)))
