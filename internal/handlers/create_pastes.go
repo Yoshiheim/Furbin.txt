@@ -3,13 +3,11 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"hoxt/internal/db"
 	"hoxt/internal/helpers"
 	"hoxt/internal/modules"
 	"html"
 	"net/http"
-	"strconv"
 
 	"gorm.io/gorm"
 )
