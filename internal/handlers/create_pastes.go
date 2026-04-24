@@ -72,10 +72,6 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Author text-field exceeds character limit of 128.", http.StatusBadRequest)
 		return
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> 307be61 (big furry update :3)
 	//THIS LOOKS LIKE UNREADEBLE (╥﹏╥)
 	// if someone try to hack by using bytes(eg. \x3C \x3E).
 	body.Title = helpers.EscapeString(helpers.TruncateByte(body.Title, 100))
