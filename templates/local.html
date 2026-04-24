@@ -10,11 +10,11 @@
     <div style="text-align: left; background-color: rgb(31, 31, 31);">
 
         ID:{{.ID}}
-            {{.Title}}
+            {{Escape .Title}}
         
             [Created At: {{ formatDate .CreatedAt }}]
         
-        <pre>{{.Content}}</pre>
+        <pre style="font-size: 5px;">{{ Escape .Content}}</pre>
 
         <button onclick="copyText(document.getElementById('content').textContent)">Copy</button>
     </div>

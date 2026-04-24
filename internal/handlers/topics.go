@@ -61,7 +61,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 	if err := tpl.Execute(w, map[string]any{
 		"data":   data.Configs,
-		"logo":   html.EscapeString(string(data.Logo)),
+		"logo":   string(data.Logo),
 		"topics": tops,
 	}); err != nil {
 		log.Println(err.Error())

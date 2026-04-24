@@ -16,4 +16,11 @@ var FuncMap = template.FuncMap{
 	"Escape": func(text string) string {
 		return html.EscapeString(text)
 	},
+	"JoinEscape": func(text []string) string {
+		var s []string
+		for _, v := range text {
+			s = append(s, EscapeString(v))
+		}
+		return strings.Join(s, "\n")
+	},
 }

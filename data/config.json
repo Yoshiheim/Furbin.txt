@@ -1,12 +1,21 @@
 {
     "port": "10000",
     "host": "0.0.0.0",
-    "name": "somepastebin.onrender.com",
+    "name": "furbin.txt",
+    "description": [
+        "The first pastebin for dinomask furries!",
+        "and kind of furries too!"
+    ],
     "created_by": "Yoshiheim",
-    "logo_path": "./data/logo.txt",
     "theme": 0,
     "favicon_path": "./data/favicon.ico",
     "db_filename": "data.db",
+    "logo": {
+        "logo_path": "./data/cute_furry_raptor.png",
+        "width": 600,
+        "heigth": 400,
+        "charmap": " .:-~+=*%&)@"
+    },
     "clear_timer": {
         "destroy_pinned": false,
         "tick": "24(h)"
@@ -21,8 +30,8 @@
             "descr": "General topic for pasting anything"
         },
         {
-            "name": "code",
-            "descr": "Paste your code here for everyone to see"
+            "name": "asciiart",
+            "descr": "For creatibe people, i made this topic to post your ascii arts :3"
         },
         {
             "name": "selfpromo",

@@ -8,24 +8,28 @@
     <title>{{Escape .data.Name}}</title>
 </head>
 <body>
-    <div id="logo">
-        {{if .logo }}
-        <pre>{{Escape .logo}}</pre>
-        {{else}}
-        <pre></pre>
-        {{end}}
-    </div>
+    <h6 style="font-size: 1px; white-space: pre;color: rgb(255, 255, 255); font-weight: 10; text-align: center;">
+        {{.logo}}
+    </h6>
     <div>
         <h1>
-            <a href='https://github.com/{{Escape .data.CreatedBy}}'>Created By {{Escape .data.CreatedBy}}</a>
+            {{Escape .data.Name}}
         </h1>
+        <div style=>
+            {{range .data.Description}}
+                <h4>{{.}}</h4>
+            {{end}}    
+        </div>
+        <h3>            
+            <a  href='https://github.com/{{Escape .data.CreatedBy}}'>Created By {{Escape .data.CreatedBy}}</a>
+        </h3>
     </div>
     <div class="pas">
         {{range .topics}}
             <div style="padding: 10px;" class="topic">
                 <a href="/topic/{{.ID}}">/{{.Name}}</a> - <small>{{.PostCount}} pastes</small>
                 <div>
-                    <small style="color:rgb(172, 172, 172)">{{.Description}}</small>
+                    <small style="color:rgb(188, 188, 188)">{{.Description}}</small>
                 </div>
             </div>
         {{else}}

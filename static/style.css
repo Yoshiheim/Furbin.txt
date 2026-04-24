@@ -1,8 +1,14 @@
 body {
-    background-color: rgb(19, 19, 19);
-    color: rgb(216, 216, 216);
+    background-color: rgb(31, 33, 34);
+    color: rgb(193, 193, 193);
 
-    font-family: "Lucida Console", "Courier New", monospace;
+    /*font-family: "Lucida Console", "Courier New", monospace;*/
+    font-family: Consolas, "Andale Mono", "Courier New", monospace;
+
+}
+
+#logo {
+    color: rgb(30, 41, 46);
 }
 
 textarea {
@@ -19,7 +25,7 @@ button{
     background-color: rgb(73, 73, 73);
 }
 button:hover {
-    background-color: #2980b9;
+    background-color: #2fa5f4;
 }
 button:active{
     background-color: #1b3f57;
@@ -33,12 +39,18 @@ div{
 }
 
 a {
-    color: #2980b9;
+    color: #1b89d3;
 }
 
 .pas{
-    background-color: rgb(31, 31, 31);
-    width: 100%;
+    width: 70%;
+    background-color: rgb(52, 56, 58);
+    /*position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Optional: ensures it spans the full width */
+    display: flex;
+    flex-direction: column;
     text-align: center;
 }
 

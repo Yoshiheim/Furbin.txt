@@ -72,11 +72,14 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Author text-field exceeds character limit of 128.", http.StatusBadRequest)
 		return
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 307be61 (big furry update :3)
 	//THIS LOOKS LIKE UNREADEBLE (╥﹏╥)
-	body.Title = html.EscapeString(helpers.ToASCII(helpers.TruncateByte(body.Title, 100)))
-	body.Content = html.EscapeString(helpers.CleanForASCIIArt(helpers.TruncateByte(body.Content, 50000)))
-	// if someone try to hack by bytes instand of string chars.
+	// if someone try to hack by using bytes(eg. \x3C \x3E).
+	body.Title = helpers.EscapeString(helpers.TruncateByte(body.Title, 100))
+	body.Content = helpers.TruncateByte(helpers.EscapeString(body.Content), 50000)
 	body.Author = html.EscapeString(helpers.SanitizeString(helpers.ToASCII(helpers.DestoySpaces(helpers.TruncateByte(body.Author, 50)))))
 
 	//Check is 'title' in JSON requet is empty.

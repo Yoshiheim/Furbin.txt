@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/TheZoraiz/ascii-image-converter/aic_package"
 	"golang.org/x/time/rate"
 )
 
@@ -13,15 +14,23 @@ type Config struct {
 	Port        string     `json:"port"`
 	Host        string     `json:"host"`
 	Name        string     `json:"name"`
+	Description []string   `json:"Description"`
 	CreatedBy   string     `json:"created_by"`
-	LogoPath    string     `json:"logo_path"`
 	Theme       uint       `json:"theme"`
 	FaviconPath string     `json:"favicon_path"`
 	DBFilename  string     `json:"db_filename"`
+	Logo        LogoCfg    `json:"logo"`
 	ClearTimer  ClearTimer `json:"clear_timer"`
 	Limit       Limit      `json:"limit"`
 	Topics      []Topic    `json:"topics"`
 	Pastes      []Paste    `json:"pastes"`
+}
+
+type LogoCfg struct {
+	Path    string `json:"logo_path"`
+	Width   int    `json:"width"`
+	Heigth  int    `json:"heigth"`
+	CharMap string `json:"charmap"`
 }
 
 type Limit struct {
@@ -74,10 +83,35 @@ func InitConfig(path string) {
 		log.Fatalln(err)
 	}
 
-	Logo, err = os.ReadFile(Configs.LogoPath)
+	flags := aic_package.DefaultFlags()
+	if Configs.Logo.Heigth == 0 || Configs.Logo.Width == 0 {
+		flags.Full = true
+	}
+	flags.Dimensions = []int{Configs.Logo.Width, Configs.Logo.Heigth}
+	//flags.Negative = true
+	flags.Dither = true
+	if Configs.Logo.CharMap == "" {
+		flags.CustomMap = aic_package.DefaultFlags().CustomMap //" .:-~+=\"*%&)@"
+	} else {
+		flags.CustomMap = Configs.Logo.CharMap
+	}
+
+	asciiArt, err := aic_package.Convert(Configs.Logo.Path, flags)
 	if err != nil {
 		log.Fatalln(err)
 	}
+	Logo = []byte(asciiArt)
+
+	/*Logo, err = os.ReadFile(Configs.Logo.LogoPath)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	*/
+}
+
+func LoadLogo(c *Config) {
+	// "<<", "furry_raptor.txt"
+
 }
 
 // TODO: REMOVE SHITCODE MOTHERFUCKER.
