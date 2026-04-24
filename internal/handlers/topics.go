@@ -54,17 +54,16 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	}
 	tpl, err := template.New("index.html").Funcs(helpers.FuncMap).ParseFiles("./templates/index.html")
 	if err != nil {
-		log.Println(err.Error())
 		http.Error(w, "Error With File", http.StatusInternalServerError)
 		return
 	}
 
 	if err := tpl.Execute(w, map[string]any{
-		"data":   data.Configs,
-		"logo":   string(data.Logo),
-		"topics": tops,
+		"data":     data.Configs,
+		"logo":     string(data.Logo),
+		"textlogo": string(data.TextLogo),
+		"topics":   tops,
 	}); err != nil {
-		log.Println(err.Error())
 		http.Error(w, "Cant Parse File", http.StatusInternalServerError)
 		return
 	}

@@ -8,33 +8,38 @@
     <title>{{Escape .data.Name}}</title>
 </head>
 <body>
-    <h6 style="font-size: 1px; white-space: pre;color: rgb(255, 255, 255); font-weight: 10; text-align: center;">
-        {{.logo}}
-    </h6>
-    <div>
-        <h1>
-            {{Escape .data.Name}}
-        </h1>
-        <div style=>
-            {{range .data.Description}}
-                <h4>{{.}}</h4>
-            {{end}}    
-        </div>
-        <h3>            
-            <a  href='https://github.com/{{Escape .data.CreatedBy}}'>Created By {{Escape .data.CreatedBy}}</a>
-        </h3>
-    </div>
+    {{if .logo}}
+        <h6 style="font-size: 1px; white-space: pre;color: rgb(255, 255, 255); font-weight: 10; text-align: center;">
+            {{.logo}}
+        </h6>
+    {{end}}
     <div class="pas">
-        {{range .topics}}
-            <div style="padding: 10px;" class="topic">
-                <a href="/topic/{{.ID}}">/{{.Name}}</a> - <small>{{.PostCount}} pastes</small>
-                <div>
-                    <small style="color:rgb(188, 188, 188)">{{.Description}}</small>
-                </div>
-            </div>
-        {{else}}
-            No topics exist yet :(
+        {{if .textlogo}}
+            <h3 style="white-space: pre">{{.textlogo}}</h3>
         {{end}}
-    </div>       
+        <div>
+            <h1>
+                {{Escape .data.Name}}
+            </h1>
+            <div>
+                {{range .data.Description}}
+                    <h4>{{.}}</h4>
+                {{end}}    
+            </div>
+            <h3>  
+                <a  href='https://github.com/{{.data.CreatorsGithub}}'>Created By {{Escape .data.CreatorsGithub}}</a>
+            </h3>
+        </div>
+            {{range .topics}}
+                <div style="padding: 10px;" class="topic">
+                    <a href="/topic/{{.ID}}">/{{.Name}}</a> - <small>{{.PostCount}} pastes</small>
+                    <div>
+                        <small style="color:rgb(188, 188, 188)">{{.Description}}</small>
+                    </div>
+                </div>
+            {{else}}
+                No topics exist yet :(
+            {{end}}
+        </div>       
 </body>
 </html>

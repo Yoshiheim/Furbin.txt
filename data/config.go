@@ -11,22 +11,29 @@ import (
 
 // All configs for 'config.json' for avoid hardcoding :3
 type Config struct {
-	Port        string     `json:"port"`
-	Host        string     `json:"host"`
-	Name        string     `json:"name"`
-	Description []string   `json:"Description"`
-	CreatedBy   string     `json:"created_by"`
-	Theme       uint       `json:"theme"`
-	FaviconPath string     `json:"favicon_path"`
-	DBFilename  string     `json:"db_filename"`
-	Logo        LogoCfg    `json:"logo"`
-	ClearTimer  ClearTimer `json:"clear_timer"`
-	Limit       Limit      `json:"limit"`
-	Topics      []Topic    `json:"topics"`
-	Pastes      []Paste    `json:"pastes"`
+	Port           string      `json:"port"`
+	Host           string      `json:"host"`
+	Name           string      `json:"name"`
+	TextLogo       TextLogoCfg `json:"text_logo"`
+	Description    []string    `json:"Description"`
+	CreatorsGithub string      `json:"creators_github"`
+	Theme          uint        `json:"theme"`
+	FaviconPath    string      `json:"favicon_path"`
+	DBFilename     string      `json:"db_filename"`
+	Logo           LogoCfg     `json:"logo"`
+	ClearTimer     ClearTimer  `json:"clear_timer"`
+	Limit          Limit       `json:"limit"`
+	Topics         []Topic     `json:"topics"`
+	Pastes         []Paste     `json:"pastes"`
+}
+
+type TextLogoCfg struct {
+	Hide bool   `json:"hide"`
+	File string `json:"file"`
 }
 
 type LogoCfg struct {
+	Hide    bool   `json:"hide"`
 	Path    string `json:"logo_path"`
 	Width   int    `json:"width"`
 	Heigth  int    `json:"heigth"`
@@ -71,6 +78,8 @@ var Configs Config
 // The Logo of Pastebin's main page
 var Logo []byte
 
+var TextLogo []byte
+
 // Embed configs values to "data.Configs" var.
 func InitConfig(path string) {
 	file, err := os.ReadFile(path)
@@ -82,25 +91,36 @@ func InitConfig(path string) {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	if Configs.Logo.Hide == false {
+		flags := aic_package.DefaultFlags()
+		if Configs.Logo.Heigth == 0 || Configs.Logo.Width == 0 {
+			flags.Full = true
+		}
+		flags.Dimensions = []int{Configs.Logo.Width, Configs.Logo.Heigth}
+		//flags.Negative = true
+		flags.Dither = true
+		if Configs.Logo.CharMap == "" {
+			flags.CustomMap = aic_package.DefaultFlags().CustomMap //" .:-~+=\"*%&)@"
+		} else {
+			flags.CustomMap = Configs.Logo.CharMap
+		}
 
-	flags := aic_package.DefaultFlags()
-	if Configs.Logo.Heigth == 0 || Configs.Logo.Width == 0 {
-		flags.Full = true
-	}
-	flags.Dimensions = []int{Configs.Logo.Width, Configs.Logo.Heigth}
-	//flags.Negative = true
-	flags.Dither = true
-	if Configs.Logo.CharMap == "" {
-		flags.CustomMap = aic_package.DefaultFlags().CustomMap //" .:-~+=\"*%&)@"
+		asciiArt, err := aic_package.Convert(Configs.Logo.Path, flags)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		Logo = []byte(asciiArt)
 	} else {
-		flags.CustomMap = Configs.Logo.CharMap
+		Logo = []byte("")
 	}
 
-	asciiArt, err := aic_package.Convert(Configs.Logo.Path, flags)
-	if err != nil {
-		log.Fatalln(err)
+	if Configs.TextLogo.Hide == false {
+		f, err := os.ReadFile(Configs.TextLogo.File)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		TextLogo = f
 	}
-	Logo = []byte(asciiArt)
 
 	/*Logo, err = os.ReadFile(Configs.Logo.LogoPath)
 	if err != nil {
