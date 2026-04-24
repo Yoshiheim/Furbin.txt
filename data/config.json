@@ -1,18 +1,18 @@
 {
     "port": "10000",
     "host": "0.0.0.0",
-    "name": "",
+    "name": "Furbin.txt",
     "description": [],
     "text_logo":{
         "hide": false,
         "file": "./data/text.txt"
     },
-    "creators_github": "",
+    "creators_github": "Yoshiheim",
     "theme": 0,
     "favicon_path": "./data/favicon.ico",
     "db_filename": "data.db",
     "logo": {
-        "hide": true,
+        "hide": false,
         "logo_path": "./data/cute_furry_raptor.png",
         "width": 450,
         "heigth": 250,
