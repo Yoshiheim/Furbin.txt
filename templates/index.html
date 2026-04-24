@@ -14,12 +14,12 @@
     </title>
 </head>
 <body>
-    {{if .logo}}
-        <h6 style="font-size: 1px; white-space: pre;color: rgb(255, 255, 255); font-weight: 10; text-align: center;">
-            {{.logo}}
-        </h6>
-    {{end}}
-    <div class="pas">
+    <div class="pas">  
+        {{if .logo}}
+            <h6 style="font-size: 1px; white-space: pre;color: rgb(255, 255, 255); font-weight: 10; text-align: center;">
+                {{.logo}}
+            </h6>
+        {{end}}
         {{if .textlogo}}
             <h3 style="white-space: pre">{{.textlogo}}</h3>
         {{end}}
@@ -29,14 +29,14 @@
                     {{Escape .data.Name}}
                 </h1>
             {{end}}
-            
-            {{if .data.Description}}
-                <div>
-                    {{range .data.Description}}
-                        <h4>{{.}}</h4>
-                    {{end}}
-                </div>
-                    
+            {{if eq .data.Description.Hide false}}
+                {{if .data.Description.Text}}
+                    <div>
+                        {{range .data.Description.Text}}
+                            <h4>{{.}}</h4>
+                        {{end}}
+                    </div>
+                {{end}}
             {{end}}
             {{if .data.CreatorsGithub}}
                 <h3>  

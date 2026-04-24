@@ -11,20 +11,25 @@ import (
 
 // All configs for 'config.json' for avoid hardcoding :3
 type Config struct {
-	Port           string      `json:"port"`
-	Host           string      `json:"host"`
-	Name           string      `json:"name"`
-	TextLogo       TextLogoCfg `json:"text_logo"`
-	Description    []string    `json:"Description"`
-	CreatorsGithub string      `json:"creators_github"`
-	Theme          uint        `json:"theme"`
-	FaviconPath    string      `json:"favicon_path"`
-	DBFilename     string      `json:"db_filename"`
-	Logo           LogoCfg     `json:"logo"`
-	ClearTimer     ClearTimer  `json:"clear_timer"`
-	Limit          Limit       `json:"limit"`
-	Topics         []Topic     `json:"topics"`
-	Pastes         []Paste     `json:"pastes"`
+	Port           string       `json:"port"`
+	Host           string       `json:"host"`
+	Name           string       `json:"name"`
+	TextLogo       TextLogoCfg  `json:"text_logo"`
+	Description    Descriptions `json:"description"`
+	CreatorsGithub string       `json:"creators_github"`
+	Theme          uint         `json:"theme"`
+	FaviconPath    string       `json:"favicon_path"`
+	DBFilename     string       `json:"db_filename"`
+	Logo           LogoCfg      `json:"logo"`
+	ClearTimer     ClearTimer   `json:"clear_timer"`
+	Limit          Limit        `json:"limit"`
+	Topics         []Topic      `json:"topics"`
+	Pastes         []Paste      `json:"pastes"`
+}
+
+type Descriptions struct {
+	Hide bool     `json:"hide"`
+	Text []string `json:"text"`
 }
 
 type TextLogoCfg struct {

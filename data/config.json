@@ -2,15 +2,6 @@
     "port": "10000",
     "host": "0.0.0.0",
     "name": "Furbin.txt",
-    "description": [],
-    "text_logo":{
-        "hide": false,
-        "file": "./data/text.txt"
-    },
-    "creators_github": "Yoshiheim",
-    "theme": 0,
-    "favicon_path": "./data/favicon.ico",
-    "db_filename": "data.db",
     "logo": {
         "hide": true,
         "logo_path": "./data/cute_furry_raptor.png",
@@ -18,14 +9,19 @@
         "heigth": 250,
         "charmap": " .:-~+=*%&)@"
     },
-    "clear_timer": {
-        "destroy_pinned": false,
-        "tick": "24(h)"
+    "text_logo":{
+        "hide": true,
+        "file": "./data/text.txt"
     },
-    "limit": {
-        "limit_time": 4,
-        "posts": 2
+    "description": {
+        "hide": false,
+        "text": [
+            "The first pastebin for dinomask furries :3",
+            "and any kind of furries too",
+            "This Website is Open Sourc and Code Available in GitHub(https://github.com/Yoshiheim/Furbin.txt)"
+        ]
     },
+    "creators_github": "Yoshiheim",
     "topics": [
         {
             "name": "index",
@@ -51,5 +47,17 @@
             "is_titled": true,
             "topic_index": 1
         }
-    ]
+    ],
+    "theme": 0,
+    "favicon_path": "./data/favicon.ico",
+    "db_filename": "data.db",
+    "clear_timer": {
+        "destroy_pinned": false,
+        "tick": "24(h)"
+    },
+    "limit": {
+        "limit_time": 4,
+        "posts": 2
+    }
+    
 }
