@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <title>{{Escape .data.Name}}</title>
+    <title>
+        {{if .data.Name}}
+            {{Escape .data.Name}}
+        {{else}}
+            pastebin.txt
+        {{end}}
+    </title>
 </head>
 <body>
     {{if .logo}}
@@ -18,17 +24,25 @@
             <h3 style="white-space: pre">{{.textlogo}}</h3>
         {{end}}
         <div>
-            <h1>
-                {{Escape .data.Name}}
-            </h1>
-            <div>
-                {{range .data.Description}}
-                    <h4>{{.}}</h4>
-                {{end}}    
-            </div>
-            <h3>  
-                <a  href='https://github.com/{{.data.CreatorsGithub}}'>Created By {{Escape .data.CreatorsGithub}}</a>
-            </h3>
+            {{if .data.Name}}
+                <h1>
+                    {{Escape .data.Name}}
+                </h1>
+            {{end}}
+            
+            {{if .data.Description}}
+                <div>
+                    {{range .data.Description}}
+                        <h4>{{.}}</h4>
+                    {{end}}
+                </div>
+                    
+            {{end}}
+            {{if .data.CreatorsGithub}}
+                <h3>  
+                    <a href='https://github.com/{{.data.CreatorsGithub}}'>Created By {{Escape .data.CreatorsGithub}}</a>
+                </h3>
+            {{end}}
         </div>
             {{range .topics}}
                 <div style="padding: 10px;" class="topic">

@@ -1,18 +1,13 @@
 {
     "port": "10000",
     "host": "0.0.0.0",
-    "name": "furbin.txt",
-    "description": [
-        "The first pastebin for dinomask furries!",
-        "kind of furries too!",
-        "",
-        "This Website is Open Source and Code Available in Github(https://github.com/Yoshiheim/Furbin.txt)"
-    ],
+    "name": "",
+    "description": [],
     "text_logo":{
         "hide": false,
         "file": "./data/text.txt"
     },
-    "creators_github": "Yoshiheim",
+    "creators_github": "",
     "theme": 0,
     "favicon_path": "./data/favicon.ico",
     "db_filename": "data.db",
