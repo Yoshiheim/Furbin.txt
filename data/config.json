@@ -12,7 +12,7 @@
     "favicon_path": "./data/favicon.ico",
     "db_filename": "data.db",
     "logo": {
-        "hide": false,
+        "hide": true,
         "logo_path": "./data/cute_furry_raptor.png",
         "width": 450,
         "heigth": 250,
