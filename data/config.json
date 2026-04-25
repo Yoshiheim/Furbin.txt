@@ -3,10 +3,10 @@
     "host": "0.0.0.0",
     "name": "Furbin.txt",
     "logo": {
-        "hide": true,
+        "hide": false,
         "logo_path": "./data/cute_furry_raptor.png",
         "width": 450,
-        "heigth": 250,
+        "heigth": 300,
         "charmap": " .:-~+=*%&)@"
     },
     "text_logo":{

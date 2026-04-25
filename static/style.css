@@ -8,8 +8,14 @@ body {
 }
 
 #logo {
+    font-size: 1px;
+    white-space: pre;
+    color: rgb(255, 255, 255);
+    font-weight: 20;
+    text-align: center;
     user-select: none;
-    color: rgb(30, 41, 46);
+    line-height:1px;
+    user-select: none;
 }
 
 textarea {
@@ -68,13 +74,13 @@ a {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     body {
         margin: 0; /* Убираем отступы браузера */
         padding: 0;
     }
     #logo{
-        display: none;
+        
     }
     button{
         margin: 30px;
