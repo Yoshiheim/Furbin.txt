@@ -31,15 +31,19 @@
     "topics": [
         {
             "name": "index",
-            "descr": "General topic for pasting anything"
+            "descr": "General topic for pasting anything."
         },
         {
             "name": "asciiart",
-            "descr": "For creatibe people, i made this topic to post your ascii arts :3"
+            "descr": "For creatibe people, i made this topic to post your ascii arts. :3"
+        },
+        {
+            "name": "code",
+            "descr": "Share and Paste code of any programming languages here."
         },
         {
             "name": "selfpromo",
-            "descr": "Promote your stuff or anything else under this topic"
+            "descr": "Promote your stuff or anything else under this topic."
         },
         {
             "name": "guides",

@@ -31,5 +31,4 @@ func CreatePasteIfTopicExists(db *gorm.DB, IdTopic uint, paste modules.Paste) (m
 		return modules.Paste{}, err
 	}
 	return paste, nil
-
 }

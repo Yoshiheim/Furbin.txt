@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/static/style.css">
     <title>Topic.</title>
 </head>
-<body style="background-color: rgb(30, 30, 40);">
+<body style="background-color: rgb(40, 40, 50);">
     <div id="create">
         Title:
         <textarea id="title" class="inputs" maxlength="128" style="resize:none;" rows="4" cols="30" required></textarea>
@@ -26,7 +26,7 @@
             [[/{{.topic.Name}}]]
         </h2>
     </div>
-    <div class="pas" style="background-color: rgb(40, 40, 55);">
+    <div class="pas" style="background-color: rgb(50, 50, 70);">
         {{if .temp }}
             [PASTES] - [ALL PASTES ARE DELETED AFTER {{.temp}}]
         {{else}}
@@ -36,7 +36,7 @@
             <div id="pastes">
                 ID:{{.ID}}
                 <a href="/paste/{{.ID}}">{{.Title}}</a>
-                <small>[{{printf "%s" .Author}}]</small>
+                <small>[{{Escape .Author}}]</small>
                 {{if .IsTitled}}
                     (Pinned)
                 {{end}}

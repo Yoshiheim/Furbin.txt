@@ -8,7 +8,7 @@ import (
 
 func InitRoute() {
 	// Route all Handlers from /HOXT/internal/*
-	http.HandleFunc("/", handlers.Index)
+	http.HandleFunc("/", handlers.MainPage)
 	http.HandleFunc("/topic/", handlers.FindByTopic)
 	http.HandleFunc("/paste/", handlers.Local)
 	http.Handle("/create", helpers.LimitMiddleware(http.HandlerFunc(handlers.CreatePaste)))

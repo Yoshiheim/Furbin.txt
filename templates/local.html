@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div style="text-align: left; background-color: rgb(31, 31, 31);">
-
-        ID:{{.ID}}
-            {{Escape .Title}}
-        
+    <div style="text-align: left; background-color: rgb(60, 60, 70); width: 100%;">
+        <div>
+            ID:{{.ID}}
+            <strong>{{.Title}}</strong>
             [Created At: {{ formatDate .CreatedAt }}]
+        </div>
+    
+        <pre style="font-size: 17px;">{{.Content}}</pre>
         
-        <pre style="font-size: 15px;">{{ Escape .Content}}</pre>
-
         <button onclick="copyText(document.getElementById('content').textContent)">Copy</button>
     </div>
     <script>

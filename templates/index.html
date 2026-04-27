@@ -9,7 +9,7 @@
         {{if .data.Name}}
             {{Escape .data.Name}}
         {{else}}
-            pastebin.txt
+            Pastebin.txt
         {{end}}
     </title>
 </head>
@@ -33,7 +33,7 @@
             {{if .data.Description.Text}}
                     <div>
                         {{range .data.Description.Text}}
-                            <h4>{{.}}</h4>
+                            <h4>{{Escape .}}</h4>
                         {{end}}
                     </div>
             {{end}}
@@ -48,10 +48,10 @@
         
     
     </div>
-    <div style="background-color: rgb(27, 27, 39);">
+    <div style="background-color: rgb(40, 40, 50);">
         {{if not .data.PasteDiv.Hide }}    
                 <h2>🠋  [Create Paste Here]  🠋</h2>    
-                {{template "attr" }}
+                {{template "attr"}}
         {{end}}
         {{if .topics }}
             <div>
