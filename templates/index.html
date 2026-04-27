@@ -14,44 +14,62 @@
     </title>
 </head>
 <body>
-    <div class="pas">  
         {{if .logo}}
             <h6 id="logo">{{.logo}}</h6>
         {{end}}
+        <div style="font-size: 14px;">
         {{if .textlogo}}
-            <h3 style="white-space: pre">{{.textlogo}}</h3>
+            <h3 style="white-space: pre;">{{.textlogo}}</h3>
         {{end}}
-        <div>
-            {{if .data.Name}}
-                <h1>
-                    {{Escape .data.Name}}
-                </h1>
-            {{end}}
-            {{if eq .data.Description.Hide false}}
-                {{if .data.Description.Text}}
+
+        {{if .data.Name}}
+            <h1>
+                {{Escape .data.Name}}
+            </h1>
+        {{end}}
+
+
+        {{if eq .data.Description.Hide false}}
+            {{if .data.Description.Text}}
                     <div>
                         {{range .data.Description.Text}}
                             <h4>{{.}}</h4>
                         {{end}}
                     </div>
-                {{end}}
             {{end}}
-            {{if .data.CreatorsGithub}}
+        {{end}}
+
+
+        {{if .data.CreatorsGithub}}
                 <h3>  
-                    <a href='https://github.com/{{.data.CreatorsGithub}}'>Created By {{Escape .data.CreatorsGithub}}</a>
+                    <a href='https://github.com/{{.data.CreatorsGithub}}'>Created By {{Escape .data.CreatorsGithub}} :3</a>
                 </h3>
-            {{end}}
-        </div>
-            {{range .topics}}
-                <div style="padding: 10px;" class="topic">
-                    <a href="/topic/{{.ID}}">/{{.Name}}</a> - <small>{{.PostCount}} pastes</small>
-                    <div>
-                        <small style="color:rgb(188, 188, 188)">{{.Description}}</small>
+        {{end}}
+        
+    
+    </div>
+    <div style="background-color: rgb(27, 27, 39);">
+        {{if not .data.PasteDiv.Hide }}    
+                <h2>🠋  [Create Paste Here]  🠋</h2>    
+                {{template "attr" }}
+        {{end}}
+        {{if .topics }}
+            <div>
+                {{if not .data.PasteDiv.Hide }}
+                    <h1>[TOPICS]</h1>
+                {{end}}    
+                {{range .topics}}
+                    <div style="padding: 10px;" class="topic">
+                        <a href="/topic/{{.ID}}">/{{.Name}}</a> - <small>{{.PostCount}} pastes</small>
+                        <div>
+                            <small style="color:rgb(188, 188, 188)">{{.Description}}</small>
+                        </div>
                     </div>
-                </div>
-            {{else}}
-                No topics exist yet :(
-            {{end}}
-        </div>       
+                {{else}}
+                    No topics exist yet :(
+                {{end}}
+            </div>
+        {{end}}
+    </div>
 </body>
 </html>

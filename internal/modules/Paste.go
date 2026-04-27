@@ -3,7 +3,7 @@ package modules
 import "time"
 
 type Paste struct {
-	ID       uint
+	ID       uint   `gorm:"primaryKey"`
 	Title    string `gorm:"default:'[NULL]'"`
 	Content  string `gorm:"default:'[NULL]'"`
 	IsTitled bool   `gorm:"default:0"`

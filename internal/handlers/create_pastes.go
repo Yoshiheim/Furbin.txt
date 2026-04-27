@@ -72,11 +72,11 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Author text-field exceeds character limit of 128.", http.StatusBadRequest)
 		return
 	}
-	//THIS LOOKS LIKE UNREADEBLE (╥﹏╥)
+
 	// if someone try to hack by using bytes(eg. \x3C \x3E).
-	body.Title = helpers.EscapeString(helpers.TruncateByte(body.Title, 100))
-	body.Content = helpers.TruncateByte(helpers.EscapeString(body.Content), 50000)
-	body.Author = html.EscapeString(helpers.SanitizeString(helpers.ToASCII(helpers.DestoySpaces(helpers.TruncateByte(body.Author, 50)))))
+	body.Title = html.EscapeString(helpers.TruncateByte(body.Title, 100))
+	body.Content = html.EscapeString(helpers.TruncateByte(body.Content, 50000))
+	body.Author = html.EscapeString(helpers.ToASCII(helpers.TruncateByte(body.Author, 50)))
 
 	//Check is 'title' in JSON requet is empty.
 	if body.Title == "" {
@@ -94,7 +94,7 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 
 	// 'author' in JSON request is optional btw.
 
-	err := helpers.CreatePasteIfTopicExists(db.DB, body.TopicID, modules.Paste{
+	paste, err := helpers.CreatePasteIfTopicExists(db.DB, body.TopicID, modules.Paste{
 		Title:   body.Title,
 		Content: body.Content,
 		Author:  body.Author,
@@ -125,6 +125,9 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 
 		}
 	*/
-	// if all goes well, return code 200(aka http.StatusOK).
-	w.WriteHeader(http.StatusOK)
+	// helpers.EncodeJson(w, map[string]interface{}{
+	// 	"paste": paste,
+	// })
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(paste.ID)
 }

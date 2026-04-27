@@ -1,8 +1,6 @@
 package helpers
 
 import (
-	"bytes"
-	"html"
 	"strings"
 	"unicode"
 )
@@ -31,13 +29,5 @@ func DestoySpaces(text string) string {
 	text = strings.ReplaceAll(text, "\t", "")
 	text = strings.ReplaceAll(text, "\n", "")
 	text = strings.ReplaceAll(text, " ", "")
-	return text
-}
-
-func EscapeString(text string) string {
-	//this code looks like bullshit
-	text = string(bytes.ReplaceAll([]byte(text), []byte("\x3E"), []byte("#")))
-	text = string(bytes.ReplaceAll([]byte(text), []byte("\x3E"), []byte("#")))
-	text = html.EscapeString(text)
 	return text
 }

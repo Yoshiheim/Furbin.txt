@@ -52,7 +52,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		tops[i].Name = html.EscapeString(tops[i].Name)
 		tops[i].Description = html.EscapeString(tops[i].Description)
 	}
-	tpl, err := template.New("index.html").Funcs(helpers.FuncMap).ParseFiles("./templates/index.html")
+	tpl, err := template.New("index.html").Funcs(helpers.FuncMap).ParseFiles("./templates/index.html", "./templates/attr.html")
 	if err != nil {
 		http.Error(w, "Error With File", http.StatusInternalServerError)
 		return

@@ -1,0 +1,17 @@
+{{define "attr"}}
+    <div id="create" style="font-size: 19px; font-weight: 600;">
+        Title:
+        <textarea id="title" class="inputs" maxlength="128" style="resize:none;" rows="4" cols="30" required></textarea>
+        <div>
+        Content:
+        <textarea id="content" class="inputs" maxlength="65536" style="resize:none;" rows="40" cols="90" required></textarea>
+        </div>
+        Username of Creator:
+        <textarea id="author" class="inputs" maxlength="128" style="resize:none;" rows="2" cols="70" required></textarea>
+            
+        <div>
+            <button onclick="FetchData(1, true)">Create Paste</button>
+        </div>
+    </div>
+    <script src="/static/attr.js"></script>
+{{end}}

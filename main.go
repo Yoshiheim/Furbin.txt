@@ -20,10 +20,12 @@ func main() {
 	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	// /HOXT/data/config.json
-	http.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, data.Configs.FaviconPath)
-	})
+	if data.Configs.FaviconPath != "" {
+		// /HOXT/data/config.json
+		http.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
+			http.ServeFile(w, r, data.Configs.FaviconPath)
+		})
+	}
 
 	// Init Route from /HOAX/internal/router/*
 	router.InitRoute()

@@ -2,6 +2,7 @@ package data
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 
@@ -11,20 +12,26 @@ import (
 
 // All configs for 'config.json' for avoid hardcoding :3
 type Config struct {
-	Port           string       `json:"port"`
-	Host           string       `json:"host"`
-	Name           string       `json:"name"`
-	TextLogo       TextLogoCfg  `json:"text_logo"`
-	Description    Descriptions `json:"description"`
-	CreatorsGithub string       `json:"creators_github"`
-	Theme          uint         `json:"theme"`
-	FaviconPath    string       `json:"favicon_path"`
-	DBFilename     string       `json:"db_filename"`
-	Logo           LogoCfg      `json:"logo"`
-	ClearTimer     ClearTimer   `json:"clear_timer"`
-	Limit          Limit        `json:"limit"`
-	Topics         []Topic      `json:"topics"`
-	Pastes         []Paste      `json:"pastes"`
+	Port           string         `json:"port"`
+	Host           string         `json:"host"`
+	Name           string         `json:"name"`
+	TextLogo       TextLogoCfg    `json:"text_logo"`
+	Description    Descriptions   `json:"description"`
+	CreatorsGithub string         `json:"creators_github"`
+	Theme          uint           `json:"theme"`
+	FaviconPath    string         `json:"favicon_path"`
+	DBFilename     string         `json:"db_filename"`
+	Logo           LogoCfg        `json:"logo"`
+	PasteDiv       CreatePasteDiv `json:"create_paste_div"`
+	ClearTimer     ClearTimer     `json:"clear_timer"`
+	Limit          Limit          `json:"limit"`
+	Topics         []Topic        `json:"topics"`
+	Pastes         []Paste        `json:"pastes"`
+}
+
+type CreatePasteDiv struct {
+	Hide          bool `json:"hide"`
+	ForTopicIndex int  `json:"for_topic_index"`
 }
 
 type Descriptions struct {
@@ -33,13 +40,15 @@ type Descriptions struct {
 }
 
 type TextLogoCfg struct {
-	Hide bool   `json:"hide"`
-	File string `json:"file"`
+	Hide  bool   `json:"hide"`
+	Color string `json:"color"`
+	File  string `json:"file"`
 }
 
 type LogoCfg struct {
 	Hide    bool   `json:"hide"`
 	Path    string `json:"logo_path"`
+	Color   string `json:"color"`
 	Width   int    `json:"width"`
 	Heigth  int    `json:"heigth"`
 	CharMap string `json:"charmap"`
@@ -96,14 +105,21 @@ func InitConfig(path string) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	if Configs.Logo.Hide == false {
+	if Configs.Port == "" {
+		Configs.Port = "127.0.0.1"
+	}
+	if Configs.Host == "" {
+		Configs.Host = "8080"
+	}
+	if Configs.Logo.Hide == false && Configs.Logo.Path != "" {
+
 		flags := aic_package.DefaultFlags()
 		if Configs.Logo.Heigth == 0 || Configs.Logo.Width == 0 {
 			flags.Full = true
 		}
 		flags.Dimensions = []int{Configs.Logo.Width, Configs.Logo.Heigth}
-		//flags.Negative = true
 		flags.Dither = true
+
 		if Configs.Logo.CharMap == "" {
 			flags.CustomMap = aic_package.DefaultFlags().CustomMap //" .:-~+=\"*%&)@"
 		} else {
@@ -112,19 +128,25 @@ func InitConfig(path string) {
 
 		asciiArt, err := aic_package.Convert(Configs.Logo.Path, flags)
 		if err != nil {
-			log.Fatalln(err)
+			Logo = []byte("")
+			fmt.Println(err)
+		} else {
+
+			Logo = []byte(asciiArt)
 		}
-		Logo = []byte(asciiArt)
+
 	} else {
 		Logo = []byte("")
+
 	}
 
 	if Configs.TextLogo.Hide == false {
 		f, err := os.ReadFile(Configs.TextLogo.File)
 		if err != nil {
-			log.Fatalln(err)
+			TextLogo = []byte("")
+		} else {
+			TextLogo = f
 		}
-		TextLogo = f
 	}
 
 	/*Logo, err = os.ReadFile(Configs.Logo.LogoPath)

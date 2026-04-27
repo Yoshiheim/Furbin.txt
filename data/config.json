@@ -5,12 +5,18 @@
     "logo": {
         "hide": false,
         "logo_path": "./data/cute_furry_raptor.png",
+        "color": "blue",
         "width": 450,
         "heigth": 300,
         "charmap": " .:-~+=*%&)@"
     },
+    "create_paste_div":{
+        "hide": false,
+        "for_topic_index": 1
+    },
     "text_logo":{
         "hide": true,
+        "color": "red",
         "file": "./data/text.txt"
     },
     "description": {

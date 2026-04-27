@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/static/style.css">
     <title>Topic.</title>
 </head>
-<body>
+<body style="background-color: rgb(30, 30, 40);">
     <div id="create">
         Title:
         <textarea id="title" class="inputs" maxlength="128" style="resize:none;" rows="4" cols="30" required></textarea>
@@ -18,7 +18,7 @@
         <textarea id="author" class="inputs" maxlength="128" style="resize:none;" rows="2" cols="70" required></textarea>
         
         <div>
-            <button onclick="FetchData('{{.id}}')">Create Paste</button>
+            <button onclick="FetchData('{{.id}}', true)">Create Paste</button>
         </div>
     </div>
     <div>
@@ -26,7 +26,7 @@
             [[/{{.topic.Name}}]]
         </h2>
     </div>
-    <div class="pas">
+    <div class="pas" style="background-color: rgb(40, 40, 55);">
         {{if .temp }}
             [PASTES] - [ALL PASTES ARE DELETED AFTER {{.temp}}]
         {{else}}
@@ -47,31 +47,6 @@
             </div>
         {{end}}
     </div>
-    <script>
-        const title = document.getElementById("title")
-        const content = document.getElementById("content")
-        const author = document.getElementById("author")
-        async function FetchData(id){
-            fetch("/create", {
-                method: "POST",
-                headers: {
-                    'Content-Type': "application/json",
-                },
-                body: JSON.stringify({
-                    'title': title.value,
-                    'content': content.value,
-                    'author': author.value,
-                    'topicid': parseInt(id),
-                })
-            }).then(res =>   {
-                location.reload()
-                if(res.status === 500){
-                    console.log("Server Error")
-                }else if(res.status === 400){
-                    console.log("Bad Request")
-                }
-            }).catch(err => alert(err))
-        }
-    </script>
+    <script src="/static/attr.js"></script>
 </body>
 </html>
