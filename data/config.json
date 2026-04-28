@@ -8,7 +8,7 @@
         "color": "blue",
         "width": 450,
         "heigth": 300,
-        "charmap": " .:-~+=*%&)@"
+        "charmap": ""
     },
     "create_paste_div":{
         "hide": false,
@@ -58,6 +58,11 @@
             "topic_index": 1
         }
     ],
+    "paste_lens":{
+        "title_len": 128,
+        "content_len": 65535,
+        "author_len": 128
+    },
     "theme": 0,
     "favicon_path": "./data/favicon.ico",
     "db_filename": "data.db",

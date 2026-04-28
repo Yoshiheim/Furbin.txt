@@ -12,21 +12,31 @@ import (
 
 // All configs for 'config.json' for avoid hardcoding :3
 type Config struct {
-	Port           string         `json:"port"`
-	Host           string         `json:"host"`
-	Name           string         `json:"name"`
-	TextLogo       TextLogoCfg    `json:"text_logo"`
-	Description    Descriptions   `json:"description"`
-	CreatorsGithub string         `json:"creators_github"`
-	Theme          uint           `json:"theme"`
-	FaviconPath    string         `json:"favicon_path"`
-	DBFilename     string         `json:"db_filename"`
-	Logo           LogoCfg        `json:"logo"`
-	PasteDiv       CreatePasteDiv `json:"create_paste_div"`
-	ClearTimer     ClearTimer     `json:"clear_timer"`
-	Limit          Limit          `json:"limit"`
-	Topics         []Topic        `json:"topics"`
-	Pastes         []Paste        `json:"pastes"`
+	// change view of pastebin here
+	Port           string         `json:"port"`             // port like 8080
+	Host           string         `json:"host"`             // its usually 127.0.0.1
+	Name           string         `json:"name"`             // Name of Pastebinn
+	Logo           LogoCfg        `json:"logo"`             // embed ASCII art as logo to website
+	PasteDiv       CreatePasteDiv `json:"create_paste_div"` // Configs for div for created pastes on index page
+	TextLogo       TextLogoCfg    `json:"text_logo"`        // embed ASCII text by figlet to the website
+	Description    Descriptions   `json:"description"`      // Array of string as Description of pastebin
+	CreatorsGithub string         `json:"creators_github"`  // Like to Your Github like "https://github.com/<CreatorsGithub>"
+	Topics         []Topic        `json:"topics"`           // All set topic of website
+	Pastes         []Paste        `json:"pastes"`           // All set paste of website
+
+	// ect.
+	PasteLens   LenOfPaste `json:"paste_lens"`   // the limit of texts length in pastes
+	Theme       uint       `json:"theme"`        // its should be for change color in pastebin but its doesn't work at all actually
+	FaviconPath string     `json:"favicon_path"` // Path of favicon of website, by default is "./data/favicon.ico"
+	DBFilename  string     `json:"db_filename"`  // filename of sqlite database file, like "data.db"
+	ClearTimer  ClearTimer `json:"clear_timer"`  // Timer for clear all pastes(but doesn't deletes pinned pastes, but you can change on '/HOXT/data/config/.json' by setting "delete-pinned" to true for delete pinned paste too)
+	Limit       Limit      `json:"limit"`        // limit doesn't works, but idk, its already works, but you should hardcode it :(
+}
+
+type LenOfPaste struct {
+	TitleLen   int `json:"title_len"`   // the len of paste's Title
+	ContentLen int `json:"content_len"` // like and of paste's Content
+	AuthorLen  int `json:"author_len"`  // and of name of Author too
 }
 
 type CreatePasteDiv struct {
@@ -35,42 +45,43 @@ type CreatePasteDiv struct {
 }
 
 type Descriptions struct {
-	Hide bool     `json:"hide"`
-	Text []string `json:"text"`
+	Hide bool     `json:"hide"` // hide descripting on the pastebin
+	Text []string `json:"text"` // content
 }
 
 type TextLogoCfg struct {
-	Hide  bool   `json:"hide"`
+	Hide  bool   `json:"hide"` // hide figlet's text logo on the pastebin
 	Color string `json:"color"`
-	File  string `json:"file"`
+	File  string `json:"file"` // and path, in repo its "./data/text.txt"
 }
 
 type LogoCfg struct {
-	Hide    bool   `json:"hide"`
-	Path    string `json:"logo_path"`
+	Hide    bool   `json:"hide"`      // hide ASCII art logo on the pastebin
+	Path    string `json:"logo_path"` // and path to image, in the pastebin its "./data/cute_furry_raptor.png"
 	Color   string `json:"color"`
-	Width   int    `json:"width"`
-	Heigth  int    `json:"heigth"`
-	CharMap string `json:"charmap"`
-}
-
-type Limit struct {
-	LimitSec    rate.Limit `json:"limit_time"`
-	LimitPerSec int        `json:"posts"`
+	Width   int    `json:"width"`   // width of ASCII art
+	Heigth  int    `json:"heigth"`  // and heigth too
+	CharMap string `json:"charmap"` // charmap when image converted to ASCII art
 }
 
 // "There we go, it should do something now, wow it didn't, why?...
 // weird. Let's do this instead, okay that worked... yep, it crashed."
 // - Notch™, 2011.
 // (for content: https://www.youtube.com/watch?v=BES9EKK4Aw4&t=153s )
+type Limit struct {
+	LimitSec    rate.Limit `json:"limit_time"`
+	LimitPerSec int        `json:"posts"`
+}
+
+// Clear All Paste every `Temp` var time
 type ClearTimer struct {
 	ClearPinned bool   `json:"destroy_pinned"`
-	Temp        string `json:"tick"`
+	Temp        string `json:"tick"` // (its string because its for parse).
 
 	//Temp        time.Duration `json:"tick"`
 }
 
-// Wanna make DB topic without inconvenience? //
+// Wanna make DB topic without inconvenience??!?/!/!??!
 // Its should solve it.
 // But i CANT make feature for update date when configs.json updated,
 // so i you want change it, will delete you DB file :(
@@ -79,9 +90,10 @@ type Topic struct {
 	Description string `json:"descr"`
 }
 
+// SAME SHIT LIKE I SAID ON Topic!!11!!!!
 type Paste struct {
-	Title      string `json:"title"`
-	Content    string `json:"content"`
+	Title      string `json:"title"`   // paste's title
+	Content    string `json:"content"` // and you know it
 	TopicIndex uint   `json:"topic_index"`
 	IsTitled   bool   `json:"is_titled"`
 }
@@ -92,6 +104,7 @@ var Configs Config
 // The Logo of Pastebin's main page
 var Logo []byte
 
+// I hope you use figlet in linux or WSL in windows
 var TextLogo []byte
 
 // Embed configs values to "data.Configs" var.
@@ -121,9 +134,9 @@ func InitConfig(path string) {
 		flags.Dither = true
 
 		if Configs.Logo.CharMap == "" {
-			flags.CustomMap = aic_package.DefaultFlags().CustomMap //" .:-~+=\"*%&)@"
+			flags.CustomMap = " .:-~+=*%&)@" //aic_package.DefaultFlags().CustomMap //" .:-~+=\"*%&)@"
 		} else {
-			flags.CustomMap = Configs.Logo.CharMap
+			flags.CustomMap = Configs.Logo.CharMap //Configs.Logo.CharMap
 		}
 
 		asciiArt, err := aic_package.Convert(Configs.Logo.Path, flags)
@@ -154,11 +167,6 @@ func InitConfig(path string) {
 		log.Fatalln(err)
 	}
 	*/
-}
-
-func LoadLogo(c *Config) {
-	// "<<", "furry_raptor.txt"
-
 }
 
 // TODO: REMOVE SHITCODE MOTHERFUCKER.

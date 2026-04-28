@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/static/style.css">
     <title>Topic.</title>
 </head>
-<body style="background-color: rgb(40, 40, 50);">
+<body style="background-color: rgb(40, 40, 50);">    
     <div id="create">
         Title:
         <textarea id="title" class="inputs" maxlength="128" style="resize:none;" rows="4" cols="30" required></textarea>
@@ -22,11 +22,11 @@
         </div>
     </div>
     <div>
-        <h2>
-            [[/{{.topic.Name}}]]
-        </h2>
-    </div>
-    <div class="pas" style="background-color: rgb(50, 50, 70);">
+    <h2>
+        [[/{{.topic.Name}}]]
+    </h2>
+
+    <div class="pas" style="background-color: rgb(55, 55, 70);">
         {{if .temp }}
             [PASTES] - [ALL PASTES ARE DELETED AFTER {{.temp}}]
         {{else}}
@@ -35,8 +35,8 @@
         {{range .pastes}}
             <div id="pastes">
                 ID:{{.ID}}
-                <a href="/paste/{{.ID}}">{{.Title}}</a>
-                <small>[{{Escape .Author}}]</small>
+                <a href="/paste/{{.ID}}" class="links">{{CutString .Title 100}}</a>
+                <small class="authors">[{{CutString .Author 70}}]</small>
                 {{if .IsTitled}}
                     (Pinned)
                 {{end}}

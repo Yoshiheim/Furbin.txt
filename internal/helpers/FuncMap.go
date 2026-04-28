@@ -16,6 +16,9 @@ var FuncMap = template.FuncMap{
 	"Escape": func(text string) string {
 		return html.EscapeString(text)
 	},
+	"CutString": func(text string, max int) string {
+		return TruncateByte(text, max)
+	},
 	"JoinEscape": func(text []string) string {
 		var s []string
 		for _, v := range text {

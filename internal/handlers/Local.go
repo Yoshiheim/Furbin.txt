@@ -4,7 +4,6 @@ import (
 	"hoxt/internal/db"
 	"hoxt/internal/helpers"
 	"hoxt/internal/modules"
-	"html"
 	"html/template"
 	"log"
 	"net/http"
@@ -41,14 +40,6 @@ func Local(w http.ResponseWriter, r *http.Request) {
 		helpers.Render404(w)
 		return
 	}
-
-	//i would prefer to escape this.
-	//paste.Title = html.EscapeString(paste.Title)
-	//paste.Content = html.EscapeString(paste.Content)
-
-	paste.Author = helpers.CleanForASCIIArt(paste.Author)
-	paste.Author = helpers.DestoySpaces(paste.Author)
-	paste.Author = html.EscapeString(paste.Author)
 
 	tpl, err := template.New("local.html").Funcs(helpers.FuncMap).ParseFiles("./templates/local.html")
 	if err != nil {

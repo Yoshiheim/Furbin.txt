@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
+	"hoxt/data"
 	"hoxt/internal/db"
 	"hoxt/internal/helpers"
 	"hoxt/internal/modules"
@@ -52,48 +53,50 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 		TopicID uint   `json:"topicid"`
 	}
 
+	// decode user's request
 	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 		http.Error(w, "Cannot parse JSON body", http.StatusBadRequest)
 		return
 	}
 
-	if len(body.Title) > 128 {
+	// data.Configs.PasteLens.AuthorLen its from "/HOXT/data/config.json", in the "paste_lens" {"title_len"}
+	if len(body.Title) > data.Configs.PasteLens.TitleLen {
 		http.Error(w, "Title text-field exceeds character limit of 128.", http.StatusBadRequest)
 		return
 	}
 
-	// 64kb text limit
-	if len(body.Content) > 65536 {
+	// data.Configs.PasteLens.ContentLen its from "/HOXT/data/config.json", in the "paste_lens" {"content_len"}
+	// (65535 = 64kb) btw
+	if len(body.Content) > data.Configs.PasteLens.ContentLen {
 		http.Error(w, "Content text-field exceeds character limit of 65536.", http.StatusBadRequest)
 		return
 	}
 
-	if len(body.Author) > 128 {
+	// data.Configs.PasteLens.ContentLen its from "/HOXT/data/config.json" to json: "paste_lens" {"author_len"}
+	if len(body.Author) > data.Configs.PasteLens.AuthorLen {
 		http.Error(w, "Author text-field exceeds character limit of 128.", http.StatusBadRequest)
 		return
 	}
 
-	// if someone try to hack by using bytes(eg. \x3C \x3E).
-	body.Title = html.EscapeString(helpers.TruncateByte(body.Title, 100))
-	body.Content = html.EscapeString(helpers.TruncateByte(body.Content, 50000))
-	body.Author = html.EscapeString(helpers.ToASCII(helpers.TruncateByte(body.Author, 50)))
+	// escape all content
+	body.Title = html.EscapeString(helpers.TruncateByte(body.Title, data.Configs.PasteLens.TitleLen))
+	body.Content = html.EscapeString(helpers.TruncateByte(body.Content, data.Configs.PasteLens.ContentLen))
+	body.Author = html.EscapeString(helpers.ToASCII(helpers.TruncateByte(helpers.DestoySpaces(body.Author), data.Configs.PasteLens.AuthorLen)))
 
 	//Check is 'title' in JSON requet is empty.
-	if body.Title == "" {
+	if helpers.DestoySpaces(body.Title) == "" {
 		http.Error(w, "Title Is empty", http.StatusBadRequest)
 		return
 	}
 
 	//same but with 'content'.
-	if body.Content == "" {
+	if helpers.DestoySpaces(body.Content) == "" {
 		http.Error(w, "Content Is empty", http.StatusBadRequest)
 		return
 	}
 
 	// Create Paste On DB.
-
 	// 'author' in JSON request is optional btw.
-
 	paste, err := helpers.CreatePasteIfTopicExists(db.DB, body.TopicID, modules.Paste{
 		Title:   body.Title,
 		Content: body.Content,

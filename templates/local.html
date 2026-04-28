@@ -12,9 +12,13 @@
             ID:{{.ID}}
             <strong>{{.Title}}</strong>
             [Created At: {{ formatDate .CreatedAt }}]
+            <div>
+            Created By: {{CutString .Author 100}}
+
+            </div>
         </div>
     
-        <pre style="font-size: 17px;">{{.Content}}</pre>
+        <pre style="font-size: 17px;" id="content">{{.Content}}</pre>
         
         <button onclick="copyText(document.getElementById('content').textContent)">Copy</button>
     </div>
@@ -28,11 +32,5 @@
             }
         }
     </script>
-    <style>
-        #content{
-            display: flex;
-            text-align:left;
-        }
-    </style>
 </body>
 </html>

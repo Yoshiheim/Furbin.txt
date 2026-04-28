@@ -15,19 +15,28 @@ async function FetchData(id, to_paste){
         })
     })
     .then(res => {
-        if (res.status === 500) {
-            console.log("Server Error")
-            return
-        } else if (res.status === 400) {
-            console.log("Bad Request")
-            return
-        }
+        if(res !== undefined){
+            if (res.status === 500) {
+                console.log("Server Error")
+                return
+            } else if (res.status === 400) {
+                console.log("Bad Request")
+                return
+            }
 
-        return res.json()
+            return res.json()
+        }else {
+            location.reload()
+        }
     })
     .then(data => {
         if (to_paste) {
-            window.location = "/paste/" + data
+            if(data!==undefined){
+                window.location = "/paste/" + data
+            }else{
+                location.reload()    
+                return
+            }
         } else {
             location.reload()
         }
