@@ -2,7 +2,10 @@
     "name": "Furbin.txt",
     "logo": {
         "hide": false,
-        "color": "blue"
+        "path": "./data/cute_furry_raptor.png",
+        "color": "rgb(230,230,255)",
+        "width": 450,
+        "heigth": 300
     },
     "create_paste_div":{
         "hide": false,

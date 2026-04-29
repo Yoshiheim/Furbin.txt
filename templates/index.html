@@ -17,7 +17,7 @@
         <div style="font-size: 14px;">
         
         {{if not .data.Logo.Hide}}
-            <h6 id="logo">{{Escape .logo}}</h6>
+            <h6 id="logo" style="color: {{Escape .data.Logo.Color}};">{{Escape .logo}}</h6>
             {{if .data.Name}}
                 <h1 style="text-align: center;">
                     {{Escape .data.Name}}

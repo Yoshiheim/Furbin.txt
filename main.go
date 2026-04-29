@@ -9,9 +9,9 @@ import (
 	"hoxt/internal/router"
 	"log"
 	"net/http"
-
-	"github.com/TheZoraiz/ascii-image-converter/aic_package"
 )
+
+var logoflag *string
 
 func main() {
 	db.InitDataBase()
@@ -44,33 +44,36 @@ func main() {
 	// flags of app.
 	hostflag := flag.String("host", data.Configs.Host, "Host Of Website")
 	portflag := flag.String("port", data.Configs.Port, "Port Of Website")
-	logoflag := flag.String("logo_path", "./data/cute_furry_raptor.png", "Path to Image for Convert to ASCII")
+	//logoflag := flag.String("logo_path", "./data/cute_furry_raptor.png", "Path to Image for Convert to ASCII")
 
 	flag.Parse()
 
-	if logoflag != nil {
+	/*
+		if logoflag != nil {
 
-		// for convert image to ASCII
-		flags := aic_package.DefaultFlags()
+			// for convert image to ASCII
+			flags := aic_package.DefaultFlags()
 
-		flags.Dimensions = []int{450, 300}
-		flags.CustomMap = " .:-~+=*%&)@"
-		flags.Full = false
-		flags.Dither = true
+			flags.Dimensions = []int{450, 300}
+			flags.CustomMap = " .:-~+=*%&)@"
+			flags.Full = false
+			flags.Dither = true
 
-		asciiArt, err := aic_package.Convert(*logoflag, flags)
-		if err != nil {
-			fmt.Printf("-- %s --\n", err)
-			data.Logo = []byte("")
-		} else {
-			fmt.Printf("CONVERT IMAGE TO ASCIII - OK\n")
-			data.Logo = []byte(asciiArt)
+			asciiArt, err := aic_package.Convert(*logoflag, flags)
+			if err != nil {
+				fmt.Printf("-- %s --\n", err)
+				data.Logo = []byte("")
+			} else {
+				fmt.Printf("CONVERT IMAGE TO ASCIII - OK\n")
+				data.Logo = []byte(asciiArt)
+			}
 		}
-	}
+	*/
 	c, err := data.LoadDynamicConfig("./data/textconf.json")
 	if err != nil {
 		fmt.Println(err)
 	}
+
 	fmt.Printf("\n%v\n\n%v\n", data.Configs, c)
 
 	if *hostflag != data.Configs.Host && *portflag == data.Configs.Port {

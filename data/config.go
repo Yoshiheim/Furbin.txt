@@ -59,11 +59,11 @@ type Descriptions struct {
 }
 
 type LogoCfg struct {
-	Hide bool `json:"hide"` // hide ASCII art logo on the pastebin
-	//Path    string `json:"logo_path"` // and path to image, in the pastebin its "./data/cute_furry_raptor.png"
-	Color string `json:"color"`
-	//Width  int    `json:"width"`  // width of ASCII art
-	//Heigth int    `json:"heigth"` // and heigth too
+	Hide   bool   `json:"hide"` // hide ASCII art logo on the pastebin
+	Path   string `json:"path"` // and path to image, in the pastebin its "./data/cute_furry_raptor.png"
+	Color  string `json:"color"`
+	Width  int    `json:"width"`  // width of ASCII art
+	Heigth int    `json:"heigth"` // and heigth too
 	//CharMap string `json:"charmap"` // charmap when image converted to ASCII art
 }
 

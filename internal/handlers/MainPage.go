@@ -57,6 +57,8 @@ func MainPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	helpers.UpdateLogo()
+
 	cfg := data.GetDConfig(w)
 
 	if err := tpl.Execute(w, map[string]any{
