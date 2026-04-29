@@ -1,0 +1,20 @@
+{
+    "name": "Furbin.txt",
+    "logo": {
+        "hide": false,
+        "color": "blue"
+    },
+    "create_paste_div":{
+        "hide": false,
+        "for_topic_index": 1
+    },
+    "description": {
+        "hide": false,
+        "text": [
+            "The first pastebin for dinomask furries :3",
+            "and any kind of furries too",
+            "This Website is Open Source and Code Available in GitHub(https://github.com/Yoshiheim/Furbin.txt)"
+        ]
+    },
+    "creators_github": "Yoshiheim"
+}

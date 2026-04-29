@@ -7,7 +7,7 @@ import (
 	"golang.org/x/time/rate"
 )
 
-var limiter = rate.NewLimiter(1, 5)
+var limiter = rate.NewLimiter(1, 1)
 
 func LimitMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -16,7 +16,6 @@ func LimitMiddleware(next http.Handler) http.Handler {
 		log.Println(r.RemoteAddr)
 
 		if !limiter.Allow() {
-
 			log.Printf("Too Many Requests By %q", r.RemoteAddr)
 			http.Error(w, "Too Many Requests", http.StatusTooManyRequests)
 			return

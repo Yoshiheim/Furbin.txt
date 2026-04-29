@@ -19,6 +19,7 @@ func Timer() {
 		tick := time.NewTicker(Dest)
 		for range tick.C {
 			db.DB.Where("is_titled = ?", data.Configs.ClearTimer.ClearPinned).Delete(&modules.Paste{})
+			db.DB.Raw(`DELETE FROM sqlite_sequence WHERE name = "pastes"`)
 		}
 	}()
 }

@@ -2,27 +2,28 @@ package data
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
+	"net/http"
 	"os"
 
-	"github.com/TheZoraiz/ascii-image-converter/aic_package"
 	"golang.org/x/time/rate"
 )
 
 // All configs for 'config.json' for avoid hardcoding :3
 type Config struct {
 	// change view of pastebin here
-	Port           string         `json:"port"`             // port like 8080
-	Host           string         `json:"host"`             // its usually 127.0.0.1
-	Name           string         `json:"name"`             // Name of Pastebinn
-	Logo           LogoCfg        `json:"logo"`             // embed ASCII art as logo to website
-	PasteDiv       CreatePasteDiv `json:"create_paste_div"` // Configs for div for created pastes on index page
-	TextLogo       TextLogoCfg    `json:"text_logo"`        // embed ASCII text by figlet to the website
-	Description    Descriptions   `json:"description"`      // Array of string as Description of pastebin
-	CreatorsGithub string         `json:"creators_github"`  // Like to Your Github like "https://github.com/<CreatorsGithub>"
-	Topics         []Topic        `json:"topics"`           // All set topic of website
-	Pastes         []Paste        `json:"pastes"`           // All set paste of website
+	Port string `json:"port"` // port like 8080
+	Host string `json:"host"` // its usually 127.0.0.1
+	/*
+		Name           string         `json:"name"`             // Name of Pastebinn
+		Logo           LogoCfg        `json:"logo"`             // embed ASCII art as logo to website
+		PasteDiv       CreatePasteDiv `json:"create_paste_div"` // Configs for div for created pastes on index page
+		TextLogo       TextLogoCfg    `json:"text_logo"`        // embed ASCII text by figlet to the website
+		Description    Descriptions   `json:"description"`      // Array of string as Description of pastebin
+		CreatorsGithub string         `json:"creators_github"`  // Like to Your Github like "https://github.com/<CreatorsGithub>"
+	*/
+	Topics []Topic `json:"topics"` // All set topic of website
+	Pastes []Paste `json:"pastes"` // All set paste of website
 
 	// ect.
 	PasteLens   LenOfPaste `json:"paste_lens"`   // the limit of texts length in pastes
@@ -31,6 +32,14 @@ type Config struct {
 	DBFilename  string     `json:"db_filename"`  // filename of sqlite database file, like "data.db"
 	ClearTimer  ClearTimer `json:"clear_timer"`  // Timer for clear all pastes(but doesn't deletes pinned pastes, but you can change on '/HOXT/data/config/.json' by setting "delete-pinned" to true for delete pinned paste too)
 	Limit       Limit      `json:"limit"`        // limit doesn't works, but idk, its already works, but you should hardcode it :(
+}
+
+type DynamicConfig struct {
+	Name           string         `json:"name"`             // Name of Pastebinn
+	Logo           LogoCfg        `json:"logo"`             // embed ASCII art as logo to website
+	PasteDiv       CreatePasteDiv `json:"create_paste_div"` // Configs for div for created pastes on index page
+	Description    Descriptions   `json:"description"`      // Array of string as Description of pastebin
+	CreatorsGithub string         `json:"creators_github"`  // Like to Your Github like "https://github.com/<CreatorsGithub>"
 }
 
 type LenOfPaste struct {
@@ -49,19 +58,13 @@ type Descriptions struct {
 	Text []string `json:"text"` // content
 }
 
-type TextLogoCfg struct {
-	Hide  bool   `json:"hide"` // hide figlet's text logo on the pastebin
-	Color string `json:"color"`
-	File  string `json:"file"` // and path, in repo its "./data/text.txt"
-}
-
 type LogoCfg struct {
-	Hide    bool   `json:"hide"`      // hide ASCII art logo on the pastebin
-	Path    string `json:"logo_path"` // and path to image, in the pastebin its "./data/cute_furry_raptor.png"
-	Color   string `json:"color"`
-	Width   int    `json:"width"`   // width of ASCII art
-	Heigth  int    `json:"heigth"`  // and heigth too
-	CharMap string `json:"charmap"` // charmap when image converted to ASCII art
+	Hide bool `json:"hide"` // hide ASCII art logo on the pastebin
+	//Path    string `json:"logo_path"` // and path to image, in the pastebin its "./data/cute_furry_raptor.png"
+	Color string `json:"color"`
+	//Width  int    `json:"width"`  // width of ASCII art
+	//Heigth int    `json:"heigth"` // and heigth too
+	//CharMap string `json:"charmap"` // charmap when image converted to ASCII art
 }
 
 // "There we go, it should do something now, wow it didn't, why?...
@@ -124,43 +127,45 @@ func InitConfig(path string) {
 	if Configs.Host == "" {
 		Configs.Host = "8080"
 	}
-	if Configs.Logo.Hide == false && Configs.Logo.Path != "" {
+	/*
+		if Configs.Logo.Hide == false && Configs.Logo.Path != "" {
 
-		flags := aic_package.DefaultFlags()
-		if Configs.Logo.Heigth == 0 || Configs.Logo.Width == 0 {
-			flags.Full = true
-		}
-		flags.Dimensions = []int{Configs.Logo.Width, Configs.Logo.Heigth}
-		flags.Dither = true
+			flags := aic_package.DefaultFlags()
+			if Configs.Logo.Heigth == 0 || Configs.Logo.Width == 0 {
+				flags.Full = true
+			}
+			flags.Dimensions = []int{Configs.Logo.Width, Configs.Logo.Heigth}
+			flags.Dither = true
 
-		if Configs.Logo.CharMap == "" {
-			flags.CustomMap = " .:-~+=*%&)@" //aic_package.DefaultFlags().CustomMap //" .:-~+=\"*%&)@"
+			if Configs.Logo.CharMap == "" {
+				flags.CustomMap = " .:-~+=*%&)@" //aic_package.DefaultFlags().CustomMap //" .:-~+=\"*%&)@"
+			} else {
+				flags.CustomMap = Configs.Logo.CharMap //Configs.Logo.CharMap
+			}
+
+			asciiArt, err := aic_package.Convert(Configs.Logo.Path, flags)
+			if err != nil {
+				Logo = []byte("")
+				fmt.Println(err)
+			} else {
+
+				Logo = []byte(asciiArt)
+			}
+
 		} else {
-			flags.CustomMap = Configs.Logo.CharMap //Configs.Logo.CharMap
-		}
-
-		asciiArt, err := aic_package.Convert(Configs.Logo.Path, flags)
-		if err != nil {
 			Logo = []byte("")
-			fmt.Println(err)
-		} else {
-
-			Logo = []byte(asciiArt)
 		}
-
-	} else {
-		Logo = []byte("")
-
-	}
-
-	if Configs.TextLogo.Hide == false {
-		f, err := os.ReadFile(Configs.TextLogo.File)
-		if err != nil {
-			TextLogo = []byte("")
-		} else {
-			TextLogo = f
+	*/
+	/*
+		if Configs.TextLogo.Hide == false {
+			f, err := os.ReadFile(Configs.TextLogo.File)
+			if err != nil {
+				TextLogo = []byte("")
+			} else {
+				TextLogo = f
+			}
 		}
-	}
+	*/
 
 	/*Logo, err = os.ReadFile(Configs.Logo.LogoPath)
 	if err != nil {
@@ -173,6 +178,8 @@ func InitConfig(path string) {
 // idk why, its shitcode in GitHub ngl,
 // so my OCD make me pretty bad when thinking about it.
 // I WANT MAKE THE HOXT WEBSITE BETTER.
+
+// node: oh, i need this :3
 func LoadConfig(path string) (*Config, error) {
 	file, err := os.ReadFile(path)
 	if err != nil {
@@ -186,4 +193,34 @@ func LoadConfig(path string) (*Config, error) {
 	}
 
 	return &config, nil
+}
+
+func LoadDynamicConfig(path string) (*DynamicConfig, error) {
+	file, err := os.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	var config DynamicConfig
+	err = json.Unmarshal(file, &config)
+	if err != nil {
+		return nil, err
+	}
+
+	return &config, nil
+}
+
+func GetDConfig(w http.ResponseWriter) *DynamicConfig {
+	cfg, err := LoadDynamicConfig("./data/textconf.json")
+	if err != nil {
+		log.Println(err.Error())
+		http.Error(w, "Error with some file...", http.StatusInternalServerError)
+		return nil
+	}
+	if cfg == nil {
+		log.Println("CONFIG IS NULL")
+		http.Error(w, "Error with some file...", http.StatusInternalServerError)
+		return nil
+	}
+	return cfg
 }

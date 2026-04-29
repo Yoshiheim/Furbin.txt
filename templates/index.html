@@ -14,20 +14,20 @@
     </title>
 </head>
 <body>
-        {{if .logo}}
-            <h6 id="logo">{{.logo}}</h6>
-        {{end}}
         <div style="font-size: 14px;">
-        {{if .textlogo}}
-            <h3 style="white-space: pre;">{{.textlogo}}</h3>
-        {{end}}
-
-        {{if .data.Name}}
-            <h1>
+        
+        {{if not .data.Logo.Hide}}
+            <h6 id="logo">{{Escape .logo}}</h6>
+            {{if .data.Name}}
+                <h1 style="text-align: center;">
+                    {{Escape .data.Name}}
+                </h1>
+            {{end}}
+        {{else}}
+            <h1 style="text-align: center;">
                 {{Escape .data.Name}}
             </h1>
         {{end}}
-
 
         {{if eq .data.Description.Hide false}}
             {{if .data.Description.Text}}

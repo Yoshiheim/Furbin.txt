@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ "$1" = "local" ]; then
-    go run main.go -host=127.0.0.1 -port=8080
+    go run main.go -host=127.0.0.1 -port=8080 -logo_path="./data/cute_furry_raptor.png"
 else
     go run main.go
 fi

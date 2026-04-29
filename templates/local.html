@@ -6,23 +6,24 @@
     <title>Paste №{{.ID}}</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
-<body>
-    <div style="text-align: left; background-color: rgb(60, 60, 70); width: 100%;">
+<body style="text-align: left;">
+    <div> 
         <div>
+
             ID:{{.ID}}
             <strong>{{.Title}}</strong>
             [Created At: {{ formatDate .CreatedAt }}]
             <div>
             Created By: {{CutString .Author 100}}
-
+            
             </div>
         </div>
     
-        <pre style="font-size: 17px;" id="content">{{.Content}}</pre>
+        <pre style="font-size: 15px;">{{.Content}}</pre>
         
         <button onclick="copyText(document.getElementById('content').textContent)">Copy</button>
     </div>
-    <script>
+    <script> 
         async function copyText(text) {
             try {
                 await navigator.clipboard.writeText(text);

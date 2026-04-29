@@ -9,6 +9,7 @@ import (
 	"hoxt/internal/modules"
 	"html"
 	"net/http"
+	"unicode/utf8"
 
 	"gorm.io/gorm"
 )
@@ -46,6 +47,13 @@ import (
 // Create Paste in Topic as JSON Post Request.
 // path: 'http://<HOST>:<PORT>/create'
 func CreatePaste(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Only POST allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	r.Body = http.MaxBytesReader(w, r.Body, 280*1024)
+
 	var body struct {
 		Title   string `json:"title"`
 		Content string `json:"content"`
@@ -60,20 +68,20 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// data.Configs.PasteLens.AuthorLen its from "/HOXT/data/config.json", in the "paste_lens" {"title_len"}
-	if len(body.Title) > data.Configs.PasteLens.TitleLen {
+	if utf8.RuneCountInString(body.Title) > data.Configs.PasteLens.TitleLen {
 		http.Error(w, "Title text-field exceeds character limit of 128.", http.StatusBadRequest)
 		return
 	}
 
 	// data.Configs.PasteLens.ContentLen its from "/HOXT/data/config.json", in the "paste_lens" {"content_len"}
-	// (65535 = 64kb) btw
-	if len(body.Content) > data.Configs.PasteLens.ContentLen {
+	// (65535 = 64kb) btw	
+	if utf8.RuneCountInString(body.Content) > data.Configs.PasteLens.ContentLen {
 		http.Error(w, "Content text-field exceeds character limit of 65536.", http.StatusBadRequest)
 		return
 	}
 
 	// data.Configs.PasteLens.ContentLen its from "/HOXT/data/config.json" to json: "paste_lens" {"author_len"}
-	if len(body.Author) > data.Configs.PasteLens.AuthorLen {
+	if utf8.RuneCountInString(body.Author) > data.Configs.PasteLens.AuthorLen {
 		http.Error(w, "Author text-field exceeds character limit of 128.", http.StatusBadRequest)
 		return
 	}

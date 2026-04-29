@@ -32,13 +32,18 @@ async function FetchData(id, to_paste){
     .then(data => {
         if (to_paste) {
             if(data!==undefined){
+				title.value = ""
+				content.value = ""
+				author.value = ""
                 window.location = "/paste/" + data
+				return
             }else{
                 location.reload()    
                 return
             }
         } else {
             location.reload()
+            return
         }
     })
     .catch(err => alert(err))

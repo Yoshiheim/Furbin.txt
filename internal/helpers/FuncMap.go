@@ -3,6 +3,7 @@ package helpers
 import (
 	"html"
 	"html/template"
+	"math/rand"
 	"strings"
 	"time"
 )
@@ -25,5 +26,11 @@ var FuncMap = template.FuncMap{
 			s = append(s, html.EscapeString(v))
 		}
 		return strings.Join(s, "\n")
+	},
+	"Sub": func(a, b int) int {
+		return a - b
+	},
+	"Rand": func(a int) int {
+		return rand.Intn(a)
 	},
 }

@@ -1,33 +1,6 @@
 {
-    "port": "10000",
-    "host": "0.0.0.0",
-    "name": "Furbin.txt",
-    "logo": {
-        "hide": false,
-        "logo_path": "./data/cute_furry_raptor.png",
-        "color": "blue",
-        "width": 450,
-        "heigth": 300,
-        "charmap": ""
-    },
-    "create_paste_div":{
-        "hide": false,
-        "for_topic_index": 1
-    },
-    "text_logo":{
-        "hide": true,
-        "color": "red",
-        "file": "./data/text.txt"
-    },
-    "description": {
-        "hide": false,
-        "text": [
-            "The first pastebin for dinomask furries :3",
-            "and any kind of furries too",
-            "This Website is Open Sourc and Code Available in GitHub(https://github.com/Yoshiheim/Furbin.txt)"
-        ]
-    },
-    "creators_github": "Yoshiheim",
+    "port": "8080",
+    "host": "127.0.0.1",
     "topics": [
         {
             "name": "index",
@@ -53,7 +26,7 @@
     "pastes": [
         {
             "title": "MAIN PASTE + LINK TO SOURCE CODE",
-            "content": "Created by Yoshiheim(https://github.com/Yoshiheim)\nSource code: https://github.com/Yoshiheim/HOXT\nPlease do not http-flood this, and have fun! :3",
+            "content": "Created by Yoshiheim(https://github.com/Yoshiheim)\nSource code: https://github.com/Yoshiheim/Furbin.txt\nPlease do not http-flood this, and have fun! :3",
             "is_titled": true,
             "topic_index": 1
         }
@@ -68,11 +41,10 @@
     "db_filename": "data.db",
     "clear_timer": {
         "destroy_pinned": false,
-        "tick": "24(h)"
+        "tick": "30(m)"
     },
     "limit": {
         "limit_time": 4,
         "posts": 2
     }
-    
 }
