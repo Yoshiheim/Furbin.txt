@@ -2,6 +2,7 @@ package data
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -26,12 +27,13 @@ type Config struct {
 	Pastes []Paste `json:"pastes"` // All set paste of website
 
 	// ect.
-	PasteLens   LenOfPaste `json:"paste_lens"`   // the limit of texts length in pastes
-	Theme       uint       `json:"theme"`        // its should be for change color in pastebin but its doesn't work at all actually
-	FaviconPath string     `json:"favicon_path"` // Path of favicon of website, by default is "./data/favicon.ico"
-	DBFilename  string     `json:"db_filename"`  // filename of sqlite database file, like "data.db"
-	ClearTimer  ClearTimer `json:"clear_timer"`  // Timer for clear all pastes(but doesn't deletes pinned pastes, but you can change on '/HOXT/data/config/.json' by setting "delete-pinned" to true for delete pinned paste too)
-	Limit       Limit      `json:"limit"`        // limit doesn't works, but idk, its already works, but you should hardcode it :(
+	PasteLens            LenOfPaste `json:"paste_lens"` // the limit of texts length in pastes
+	CheckMemoryUsageTick string     `json:"check_memory_usage_tick"`
+	Theme                uint       `json:"theme"`        // its should be for change color in pastebin but its doesn't work at all actually
+	FaviconPath          string     `json:"favicon_path"` // Path of favicon of website, by default is "./data/favicon.ico"
+	DBFilename           string     `json:"db_filename"`  // filename of sqlite database file, like "data.db"
+	ClearTimer           ClearTimer `json:"clear_timer"`  // Timer for clear all pastes(but doesn't deletes pinned pastes, but you can change on '/HOXT/data/config/.json' by setting "delete-pinned" to true for delete pinned paste too)
+	Limit                Limit      `json:"limit"`        // limit doesn't works, but idk, its already works, but you should hardcode it :(
 }
 
 type DynamicConfig struct {
@@ -59,12 +61,19 @@ type Descriptions struct {
 }
 
 type LogoCfg struct {
-	Hide   bool   `json:"hide"` // hide ASCII art logo on the pastebin
-	Path   string `json:"path"` // and path to image, in the pastebin its "./data/cute_furry_raptor.png"
-	Color  string `json:"color"`
-	Width  int    `json:"width"`  // width of ASCII art
-	Heigth int    `json:"heigth"` // and heigth too
-	//CharMap string `json:"charmap"` // charmap when image converted to ASCII art
+	Hide    bool   `json:"hide"` // hide ASCII art logo on the pastebin
+	Path    string `json:"path"` // and path to image, in the pastebin its "./data/cute_furry_raptor.png"
+	Color   RGB    `json:"color"`
+	Width   int    `json:"width"`  // width of ASCII art
+	Heigth  int    `json:"heigth"` // and heigth too
+	Size    int    `json:"size"`
+	CharMap string `json:"charmap"` // charmap when image converted to ASCII art
+}
+
+type RGB struct {
+	R int `json:"r"`
+	G int `json:"g"`
+	B int `json:"b"`
 }
 
 // "There we go, it should do something now, wow it didn't, why?...
@@ -127,6 +136,7 @@ func InitConfig(path string) {
 	if Configs.Host == "" {
 		Configs.Host = "8080"
 	}
+	fmt.Printf("[GET config.json - OK]\n")
 	/*
 		if Configs.Logo.Hide == false && Configs.Logo.Path != "" {
 

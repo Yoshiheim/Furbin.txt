@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"fmt"
 	"hoxt/data"
 	"hoxt/internal/db"
 	"hoxt/internal/modules"
@@ -15,6 +16,7 @@ func Timer() {
 	if err != nil {
 		return
 	}
+	fmt.Println("[INIT TIME CLEARER]")
 	go func() {
 		tick := time.NewTicker(Dest)
 		for range tick.C {

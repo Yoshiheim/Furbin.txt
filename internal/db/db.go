@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"hoxt/data"
 	"hoxt/internal/modules"
 	"log"
@@ -13,6 +14,7 @@ import (
 var DB *gorm.DB
 
 func InitDataBase() {
+	defer fmt.Println("[DATABASE: RELOADED]")
 	if data.Configs.DBFilename == "" {
 		data.Configs.DBFilename = "data.db"
 	}

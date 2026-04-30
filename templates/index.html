@@ -14,10 +14,10 @@
     </title>
 </head>
 <body>
-        <div style="font-size: 14px;">
+    <div style="font-size: 14px;">
         
         {{if not .data.Logo.Hide}}
-            <h6 id="logo" style="color: {{Escape .data.Logo.Color}};">{{Escape .logo}}</h6>
+            <h6 id="logo" style="color: rgb({{RGB2String .data.Logo.Color}}); font-size:{{.data.Logo.Size}}px; line-height: .6;">{{Escape .logo}}</h6>
             {{if .data.Name}}
                 <h1 style="text-align: center;">
                     {{Escape .data.Name}}
@@ -56,13 +56,13 @@
         {{if .topics }}
             <div>
                 {{if not .data.PasteDiv.Hide }}
-                    <h1>[TOPICS]</h1>
+                    <h1>[PASTE'S TOPICS]</h1>
                 {{end}}    
                 {{range .topics}}
                     <div style="padding: 10px;" class="topic">
-                        <a href="/topic/{{.ID}}">/{{.Name}}</a> - <strong>{{.PostCount}} pastes</strong>
+                        <a href="/topic/{{.ID}}">/{{.Name}}</a> - <strong style="font-size:18px;">{{.PostCount}} pastes</strong>
                         <div>
-                            <small style="color:rgb(188, 188, 188)">{{.Description}}</small>
+                            <small style="color:rgb(188, 188, 188);">{{.Description}}</small>
                         </div>
                     </div>
                 {{else}}

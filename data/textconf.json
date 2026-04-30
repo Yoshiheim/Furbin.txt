@@ -3,9 +3,15 @@
     "logo": {
         "hide": false,
         "path": "./data/cute_furry_raptor.png",
-        "color": "rgb(230,230,255)",
-        "width": 450,
-        "heigth": 300
+        "color": {
+            "r": 130,
+            "g": 130,
+            "b": 160
+        },
+        "width": 150,
+        "heigth": 150,
+        "size": 3,
+        "charmap": ""
     },
     "create_paste_div":{
         "hide": false,

@@ -3,10 +3,10 @@ package modules
 import "time"
 
 type Paste struct {
-	ID       uint   `gorm:"primaryKey"`
-	Title    string `gorm:"default:'[NULL]'"`
-	Content  string `gorm:"default:'[NULL]'"`
-	IsTitled bool   `gorm:"default:0"`
+	ID       uint `gorm:"primaryKey"`
+	Title    string
+	Content  string
+	IsTitled bool `gorm:"default:0"`
 
 	Author string `gorm:"default:'Anonymous'"`
 

@@ -1,9 +1,12 @@
 package helpers
 
 import (
+	"fmt"
+	"hoxt/data"
 	"html"
 	"html/template"
 	"math/rand"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -32,5 +35,8 @@ var FuncMap = template.FuncMap{
 	},
 	"Rand": func(a int) int {
 		return rand.Intn(a)
+	},
+	"RGB2String": func(r data.RGB) string {
+		return fmt.Sprintf("%s,%s,%s", strconv.Itoa(r.R), strconv.Itoa(r.G), strconv.Itoa(r.B))
 	},
 }

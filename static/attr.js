@@ -35,8 +35,11 @@ async function FetchData(id, to_paste){
 				title.value = ""
 				content.value = ""
 				author.value = ""
-                window.location = "/paste/" + data
-				return
+                if(parseInt(data)){
+                    window.location = `/paste/${data}`
+                    return
+                }else
+                    location.reload()
             }else{
                 location.reload()    
                 return
