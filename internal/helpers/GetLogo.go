@@ -15,7 +15,11 @@ func UpdateLogo() {
 	flags := aic_package.DefaultFlags()
 
 	flags.Dimensions = []int{c.Logo.Heigth, c.Logo.Width}
-	flags.CustomMap = " .:-~+=*%&)@"
+	if c.Logo.CharMap == "" {
+		flags.CustomMap = " .:-~+=*%&)@"
+	} else {
+		flags.CustomMap = c.Logo.CharMap
+	}
 	flags.Full = false
 	flags.Dither = true
 	asciiArt, err := aic_package.Convert(c.Logo.Path, flags)
@@ -23,7 +27,7 @@ func UpdateLogo() {
 		fmt.Printf("-- %s --\n", err)
 		data.Logo = []byte("")
 	} else {
-		fmt.Printf("CONVERT IMAGE TO ASCIII - OK\n")
+		fmt.Printf("[CONVERT IMAGE TO ASCIII - OK]\n")
 		data.Logo = []byte(asciiArt)
 	}
 }

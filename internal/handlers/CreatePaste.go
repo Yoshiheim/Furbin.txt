@@ -74,7 +74,7 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// data.Configs.PasteLens.ContentLen its from "/HOXT/data/config.json", in the "paste_lens" {"content_len"}
-	// (65535 = 64kb) btw	
+	// (65535 = 64kb) btw
 	if utf8.RuneCountInString(body.Content) > data.Configs.PasteLens.ContentLen {
 		http.Error(w, "Content text-field exceeds character limit of 65536.", http.StatusBadRequest)
 		return

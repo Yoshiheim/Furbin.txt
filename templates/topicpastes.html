@@ -40,6 +40,11 @@
                 {{if .IsTitled}}
                     (Pinned)
                 {{end}}
+                {{if DestorySpaces (CutString .Content 250) }}
+                	<div style="background-color: rgb(70,70,90); width: 50%; text-align: left">
+						{{CutString (Escape .Content) 250}}
+					</div>
+				{{end}}
             </div>
         {{else}}
             <div> 

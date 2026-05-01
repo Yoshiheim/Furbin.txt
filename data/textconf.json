@@ -1,21 +1,31 @@
 {
-    "name": "Furbin.txt",
+    "name": {
+    	"text": "Presses the Pastebin",
+    	"size": 45
+    },
     "logo": {
         "hide": false,
-        "path": "./data/cute_furry_raptor.png",
-        "color": "rgb(230,230,255)",
-        "width": 450,
-        "heigth": 300
+        "path": "./data/pastebindotcom.png",
+        "color": {
+            "r": 255,
+            "g": 255,
+            "b": 255
+        },
+        "width": 90,
+        "heigth": 90,
+        "size": 8,
+        "charmap": ""
     },
     "create_paste_div":{
         "hide": false,
         "for_topic_index": 1
     },
     "description": {
-        "hide": false,
+        "hide": true,
+        "size": 15,
         "text": [
-            "The first pastebin for dinomask furries :3",
-            "and any kind of furries too",
+            "My First Pastebin whats i self-hosted :3",
+            "Paste Something, but only legal thing...",
             "This Website is Open Source and Code Available in GitHub(https://github.com/Yoshiheim/Furbin.txt)"
         ]
     },

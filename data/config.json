@@ -36,6 +36,7 @@
         "content_len": 65535,
         "author_len": 128
     },
+    "check_memory_usage_tick": "30(s)",
     "theme": 0,
     "favicon_path": "./data/favicon.ico",
     "db_filename": "data.db",

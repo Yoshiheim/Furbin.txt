@@ -17,9 +17,11 @@ async function FetchData(id, to_paste){
     .then(res => {
         if(res !== undefined){
             if (res.status === 500) {
+            	alert("Server Error")
                 console.log("Server Error")
                 return
             } else if (res.status === 400) {
+				alert("bad request")
                 console.log("Bad Request")
                 return
             }
@@ -35,8 +37,11 @@ async function FetchData(id, to_paste){
 				title.value = ""
 				content.value = ""
 				author.value = ""
-                window.location = "/paste/" + data
-				return
+                if(parseInt(data)){
+                    window.location = `/paste/${data}`
+                    return
+                }else
+                    location.reload()
             }else{
                 location.reload()    
                 return
