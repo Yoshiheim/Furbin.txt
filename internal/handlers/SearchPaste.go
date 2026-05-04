@@ -8,7 +8,6 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"strings"
 )
 
 type NewPaste struct {
@@ -24,27 +23,20 @@ func SearchPaste(w http.ResponseWriter, r *http.Request) {
 
 	keyword = helpers.OnlyASCII(keyword)
 
+	keyword = helpers.TrimLeft(keyword)
+
 	if helpers.CheckSizeString(keyword, 35) {
 		fmt.Fprintf(w, "Bro this keyword is sooo big(35 symbols limit)")
 		return
 	}
 
-	var err error
-
-	var id uint32
-
-	var preid uint32
-
-	var nextid uint32
-
-	id, preid, nextid, err = helpers.SafeParsePage(r)
+	id, preid, nextid, err := helpers.SafeParsePage(r)
 	if err != nil {
 		http.Error(w, "error wit args", http.StatusBadRequest)
 		return
 	}
 
 	var pastes []modules.Paste
-	var finded_pastes []NewPaste
 
 	page := int(id)
 	limit := 10
@@ -59,27 +51,14 @@ func SearchPaste(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if act := db.DB.
-		Order("id DESC").
+		Order("id ASC").
 		Offset(offset).
-		Limit(limit).
 		Where("title LIKE ?", "%"+keyword+"%").
+		Limit(limit).
 		Find(&pastes); act.Error != nil {
 		fmt.Println(act.Error.Error())
 		http.Error(w, "DB Error", http.StatusInternalServerError)
 		return
-	}
-
-	if keyword != "" {
-		for _, v := range pastes {
-			if strings.Contains(v.Title, keyword) {
-				newtitle := strings.ReplaceAll(v.Title, keyword, strings.ToUpper(keyword))
-				finded_pastes = append(finded_pastes, NewPaste{
-					Title: newtitle,
-					ID:    v.ID,
-				})
-			}
-			fmt.Printf("[%s]\n", v.Title)
-		}
 	}
 
 	tpl, err := template.New("SearchPaste.html").Funcs(helpers.FuncMap).ParseFiles("./templates/SearchPaste.html", "./templates/search.html")
@@ -91,7 +70,7 @@ func SearchPaste(w http.ResponseWriter, r *http.Request) {
 
 	//and render for client
 	tpl.Execute(w, map[string]any{
-		"pastes":  finded_pastes,
+		"pastes":  pastes,
 		"keyword": keyword,
 		"preid":   preid,
 		"nextid":  nextid,

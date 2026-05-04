@@ -11,10 +11,10 @@
             "g": 255,
             "b": 255
         },
-        "width": 300,
-        "heigth": 300,
-        "size": 2,
-        "charmap": ""
+        "width": 120,
+        "heigth": 120,
+        "size": 6,
+        "charmap": " .,~:;*!&([{@"
     },
     "create_paste_div":{
         "hide": true,

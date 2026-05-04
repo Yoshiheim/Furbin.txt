@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"strings"
 	"unicode/utf8"
 )
 
@@ -22,23 +23,16 @@ func CheckSizeString(s string, maxBytes int) bool {
 	return false
 }
 
-/*
-func DestroySpaces(text string) string {
-	text = strings.ReplaceAll(text, "\t", "")
-	text = strings.ReplaceAll(text, "\n", "")
-	text = strings.ReplaceAll(text, "\b", "")
-	text = strings.ReplaceAll(text, "⠀", "")
-	text = strings.ReplaceAll(text, " ", "")
-	return text
+func TrimLeft(s string) string {
+	return strings.TrimLeft(s, " \n\t\r\v\f")
 }
-*/
 
 func DestroySpaces(s string) string {
 	var b []rune
 
 	for _, r := range s {
 		switch r {
-		case '\n', '\t', '\b', ' ', '⠀':
+		case '\n', '\t', '\b', '\r', ' ', '⠀':
 			continue
 		default:
 			b = append(b, r)

@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"hoxt/data"
 	"hoxt/internal/db"
 	"hoxt/internal/helpers"
@@ -84,9 +83,9 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// escape all content
-	body.Title = html.EscapeString(helpers.OnlyASCII(helpers.TruncateByte(helpers.DestroySpaces(body.Title), data.Configs.PasteLens.TitleLen)))
-	body.Content = html.EscapeString(helpers.OnlyASCII(helpers.TruncateByte(body.Content, data.Configs.PasteLens.ContentLen)))
-	body.Author = html.EscapeString(helpers.OnlyASCII(helpers.TruncateByte(helpers.DestroySpaces(body.Author), data.Configs.PasteLens.AuthorLen)))
+	body.Title = html.EscapeString(helpers.OnlyASCII(helpers.TruncateByte(helpers.TrimLeft(body.Title), data.Configs.PasteLens.TitleLen)))
+	body.Content = html.EscapeString(helpers.OnlyASCII(helpers.TruncateByte(helpers.TrimLeft(body.Content), data.Configs.PasteLens.ContentLen)))
+	body.Author = html.EscapeString(helpers.OnlyASCII(helpers.TruncateByte(helpers.DestroySpaces(helpers.TrimLeft(body.Author)), data.Configs.PasteLens.AuthorLen)))
 
 	//Check is 'title' in JSON requet is empty.
 	if helpers.DestroySpaces(body.Title) == "" {
@@ -99,8 +98,6 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Content Is empty", http.StatusBadRequest)
 		return
 	}
-
-	fmt.Printf("[%s], [%s]\n", body.Title, body.Content)
 
 	// Create Paste On DB.
 	// 'author' in JSON request is optional btw.

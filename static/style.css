@@ -90,6 +90,7 @@ a {
     background-color: rgb(40, 40, 44);
     border-radius: 2px;
     color: white;
+    width: 90%;
     white-space: pre-wrap;
 }
 

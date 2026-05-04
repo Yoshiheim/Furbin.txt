@@ -23,6 +23,7 @@ func UpdateLogo() {
 	} else {
 		flags.CustomMap = c.Logo.CharMap
 	}
+	flags.Negative = true
 	flags.Full = false
 	flags.Dither = true
 	asciiArt, err := aic_package.Convert(c.Logo.Path, flags)
