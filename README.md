@@ -1,6 +1,8 @@
 ### __Website source code repository.__
 
-this website for dinomask furries but also be for any kind of furries too.
+The Jokeness Doxbin Clone
+
+So please, do not post real pirvate information here.
 
 ## The Website Screenshot:
 
