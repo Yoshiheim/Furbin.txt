@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"hoxt/data"
 	"hoxt/internal/db"
 	"hoxt/internal/helpers"
@@ -98,6 +99,8 @@ func CreatePaste(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Content Is empty", http.StatusBadRequest)
 		return
 	}
+
+	fmt.Printf("[%s], [%s]\n", body.Title, body.Content)
 
 	// Create Paste On DB.
 	// 'author' in JSON request is optional btw.

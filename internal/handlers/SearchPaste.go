@@ -50,16 +50,26 @@ func SearchPaste(w http.ResponseWriter, r *http.Request) {
 	limit := 10
 	offset := (page - 1) * limit
 
-	//.Order("is_titled DESC").Order("created_at DESC").
-	act := db.DB.Order("is_titled DESC").
-		Order("created_at DESC").Offset(offset).Limit(limit).Find(&pastes)
-	if act.Error != nil {
+	if offset < 0 {
+		offset = 0
+	}
+
+	if page < 1 {
+		page = 1
+	}
+
+	if act := db.DB.
+		Order("id DESC").
+		Offset(offset).
+		Limit(limit).
+		Where("title LIKE ?", "%"+keyword+"%").
+		Find(&pastes); act.Error != nil {
+		fmt.Println(act.Error.Error())
 		http.Error(w, "DB Error", http.StatusInternalServerError)
 		return
 	}
 
 	if keyword != "" {
-
 		for _, v := range pastes {
 			if strings.Contains(v.Title, keyword) {
 				newtitle := strings.ReplaceAll(v.Title, keyword, strings.ToUpper(keyword))
@@ -68,6 +78,7 @@ func SearchPaste(w http.ResponseWriter, r *http.Request) {
 					ID:    v.ID,
 				})
 			}
+			fmt.Printf("[%s]\n", v.Title)
 		}
 	}
 
