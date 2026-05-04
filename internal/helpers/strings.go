@@ -41,9 +41,7 @@ func DestroySpaces(s string) string {
 		case '\n', '\t', '\b', ' ', '⠀':
 			continue
 		default:
-			if r >= 32 && r <= 126 && r != '\n' && r != '\t' && r != '\b' && r != ' ' {
-				b = append(b, r)
-			}
+			b = append(b, r)
 		}
 	}
 	return string(b)
